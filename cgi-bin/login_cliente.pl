@@ -1,4 +1,4 @@
-#!F:/Perl/perl/bin/perl.exe
+#!perl/bin/perl.exe
 
 use strict;
 use warnings;
@@ -9,14 +9,14 @@ use DBI;
 
 my $cgi = CGI->new;
 $cgi->charset("UTF-8");
+my $number = $cgi->param("number");
+my $password = $cgi->param("password");
+my $session_time = 600;
+
 my $u = "bank_query";
 my $p = "ejK9ppZXv]x1ZJE9";
 my $dsn = "dbi:mysql:database=banca;host=127.0.0.1";
 my $dbh = DBI->connect($dsn, $u, $p);
-
-my $number = $cgi->param("number");
-my $password = $cgi->param("password");
-my $session_time = 600;
 
 my $sth = $dbh->prepare("SELECT * FROM tarjetas WHERE numero=? AND clave=?");
 $sth->execute($number, $password);
