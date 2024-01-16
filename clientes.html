@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Creación de clientes</title>
+    <link rel="stylesheet" href="./css/estilos_generales.css" />
+    <link rel="stylesheet" href="./css/menus_usuarios.css" />
+    <script src="./scripts/menus_usuarios.js"></script>
+    <script src="./scripts/clientes.js"></script>
+</head>
+
+<body>
+    <div id="content" class="content">
+        <div class="top">
+            <div id="welcome"></div>
+            <h4 id="timer">Su sesión concluirá en:</h4>
+            <input type="button" class="logout" onclick="closeSession()" value="Cerrar sesión" />
+        </div>
+        <div style="height: 15px"></div>
+        <a href="./index_usuarios.html">Volver</a>
+        <div style="height: 10px"></div>
+        <h2>Asistente de creación de clientes</h2>
+        <div style="height: 25px"></div>
+        <input type="text" id="dni" placeholder="DNI" />
+        <div style="height: 25px"></div>
+        <input type="text" id="names" placeholder="Nombres completos" />
+        <div style="height: 25px"></div>
+        <input type="text" id="plastname" placeholder="Apellido paterno" />
+        <div style="height: 25px"></div>
+        <input type="text" id="mlastname" placeholder="Apellido materno" />
+        <div style="height: 25px"></div>
+        <input type="date" id="bdate" placeholder="Fecha de nacimiento" />
+        <div style="height: 25px"></div>
+        <input type="button" class="submit" onclick="createClient()" value="Crear cliente" />
+    </div>
+</body>
+
+</html>

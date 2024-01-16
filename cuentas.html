@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Creación de cuentas</title>
+    <link rel="stylesheet" href="./css/estilos_generales.css" />
+    <link rel="stylesheet" href="./css/menus_usuarios.css" />
+    <script src="./scripts/utilidades.js"></script>
+    <script src="./scripts/menus_usuarios.js"></script>
+    <script src="./scripts/cuentas.js"></script>
+</head>
+
+<body>
+    <div id="content" class="content">
+        <div class="top">
+            <div id="welcome"></div>
+            <h4 id="timer">Su sesión concluirá en:</h4>
+            <input type="button" class="logout" onclick="closeSession()" value="Cerrar sesión" />
+        </div>
+        <div style="height: 15px"></div>
+        <a href="./index_usuarios.html">Volver</a>
+        <div style="height: 10px"></div>
+        <h2>Asistente de creación de cuentas</h2>
+        <div style="height: 25px"></div>
+        <input type="text" id="number" placeholder="Número de tarjeta" />
+        <div style="height: 25px"></div>
+        <input type="button" class="submit" onclick="redirect('./tarjetas.html', [['fromaccounts', 1]])"
+            value="Creación de tarjetas" />
+        <div style="height: 25px"></div>
+        <h3>Tipo de moneda:</h3>
+        <div id="currency" class="options">
+            <input type="radio" id="soles" name="currency" value="s" checked />
+            <label for="soles">Soles</label>
+            <div style="width: 50px"></div>
+            <input type="radio" id="dollars" name="currency" value="d" />
+            <label for="dollars">Dólares</label>
+        </div>
+        <div style="height: 45px"></div>
+        <input type="text" id="dni" placeholder="DNI del cliente" />
+        <div style="height: 25px"></div>
+        <input type="button" class="submit" onclick="createAccount()" value="Crear cuenta" />
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+/* Body Style */
+body {
+    font-family: sans-serif;
+    background: linear-gradient(to top right, #d9ebfd, #fef9de);
+    min-height: 100vh;
+}
+
+/* Content Style */
+.content {
+    margin: auto;
+    width: 1250px;
+}
+
+.top {
+    float: right;
+    display: flexbox;
+    width: max-content;
+    align-items: center;
+}
+
+/* Header Styles */
+
+/* Titles */
+h1 {
+    text-align: center;
+    font-size: 40px;
+    color: #002a8d;
+}
+
+/* Subtitles */
+h2 {
+    text-align: left;
+    font-size: 35px;
+    color: #002a8d;
+}
+
+/* Messages */
+h3 {
+    text-align: center;
+    font-size: 20px;
+    color: #002a8d;
+}
+
+.error {
+    color: #e30425;
+}
+
+/* Text */
+h4 {
+    text-align: center;
+    font-size: 15px;
+    color: #202e44;
+}
+
+/* Text - Inline */
+h5 {
+    flex: 1;
+    display: inline-block;
+    text-align: center;
+    font-size: 15px;
+    color: #202e44;
+}
+
+/* Links */
+a {
+    text-align: left;
+    font-size: 20px;
+    text-decoration: none;
+    color: #202e44;
+}
+
+a:hover {
+    text-decoration: underline;
+}

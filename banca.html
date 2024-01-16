@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Ingreso de Clientes</title>
+    <link rel="stylesheet" href="./css/estilos_generales.css" />
+    <link rel="stylesheet" href="./css/banca.css" />
+    <script src="./scripts/utilidades.js"></script>
+    <script src="./scripts/banca.js"></script>
+</head>
+
+<body>
+    <div id="content" class="content">
+        <img src="./logo.png" onclick="redirect('./banca.html')" class="logo" />
+        <div style="height: 35px"></div>
+        <h1>Ingreso de Clientes</h1>
+        <div style="height: 35px"></div>
+        <input type="text" id="number" placeholder="Número de tarjeta" />
+        <div style="height: 35px"></div>
+        <input type="password" id="password" placeholder="Contraseña" />
+        <div style="height: 35px"></div>
+        <input type="button" class="login" onclick="login()" value="Ingresar" />
+        <div style="margin-block: 25px"></div>
+    </div>
+</body>
+
+</html>

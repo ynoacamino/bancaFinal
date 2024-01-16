@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Realizar un movimiento</title>
+    <link rel="stylesheet" href="./css/estilos_generales.css" />
+    <link rel="stylesheet" href="./css/menus_banca.css" />
+    <script src="./scripts/utilidades.js"></script>
+    <script src="./scripts/menus_banca.js"></script>
+    <script src="./scripts/movimientos.js"></script>
+</head>
+
+<body>
+    <div id="content" class="content">
+        <div class="top">
+            <div id="welcome"></div>
+            <h4 id="timer">Su sesión concluirá en:</h4>
+            <input type="button" class="logout" onclick="closeSession()" value="Cerrar sesión" />
+        </div>
+        <div style="height: 15px"></div>
+        <a href="./index_banca.html">Volver</a>
+        <div style="height: 10px"></div>
+        <h2>Asistente de movimientos</h2>
+        <div style="height: 25px"></div>
+        <h3>Tipo de movimiento:</h3>
+        <div id="type" class="options">
+            <input type="radio" id="deposit" name="type" value="deposit" checked />
+            <label for="soles">Depósito</label>
+            <div style="width: 50px"></div>
+            <input type="radio" id="withdrawal" name="type" value="withdrawal" />
+            <label for="dollars">Retiro</label>
+        </div>
+        <div style="height: 45px"></div>
+        <input type="text" id="amount" placeholder="Cantidad" />
+        <div style="height: 25px"></div>
+        <input type="button" class="submit" onclick="doMovement()" value="Realizar movimiento" />
+    </div>
+</body>
+
+</html>
