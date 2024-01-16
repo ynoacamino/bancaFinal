@@ -1,5 +1,17 @@
 #!perl/bin/perl.exe
 
+# Recibe: card_number, password, currency
+# Retorna:
+# <errors>
+#     <error>
+#         <element>elemento</element>
+#         <message>mensaje</message>
+#     </error>
+#     <error>
+#         ...
+#     </error>
+# </errors>
+
 use strict;
 use warnings;
 use CGI;
@@ -10,15 +22,16 @@ use DateTime;
 
 my $cgi = CGI->new;
 $cgi->charset("UTF-8");
-my $u = "accounts_query";
-my $p = "yK\@tKA]c-.nHnn7Y";
-my $dsn = "dbi:mysql:database=banca;host=127.0.0.1";
-my $dbh = DBI->connect($dsn, $u, $p);
-
-my $number = $cgi->param("number");
+my $card_number = $cgi->param("card_number");
 my $password = $cgi->param("password");
+my $currency = $cgi->param("currency");
 my $current_date = DateTime->now;
 my $expire_date = $current_date->add(years => 7)->ymd;
+
+my $u = "query";
+my $p = "YR4AFJUC3nyRmasY";
+my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
+my $dbh = DBI->connect($dsn, $u, $p);
 
 sub checkNumber {
     my $number = $_[0];
@@ -33,6 +46,17 @@ sub checkNumber {
     my @card_id = $sth->fetchrow_array;
     if (@card_id) {
         return "Tarjeta ya existente";
+    }
+    return "Correcto";
+}
+
+sub checkCurrency {
+    my $currency = $_[0];
+    if (!$currency) {
+        return "Marque una moneda";
+    }
+    if ($currency !~ /^[sd]$/) {
+        return "Moneda no valida";
     }
     return "Correcto";
 }
@@ -54,10 +78,10 @@ sub checkPassword {
     return "Correcto";
 }
 
-my $number_status = checkNumber($number);
+my $card_number_status = checkNumber($card_number);
 my $password_status = checkPassword($password);
 
-if ($number_status eq "Correcto" && $password_status eq "Correcto") {
+if ($card_number_status eq "Correcto" && $password_status eq "Correcto") {
     my $sth = $dbh->prepare("INSERT INTO tarjetas (numero, clave, vencimiento) VALUES (?, ?, ?)");
     $sth->execute($number, $password, $expire_date);
     print $cgi->header("text/html");
@@ -68,7 +92,7 @@ if ($number_status eq "Correcto" && $password_status eq "Correcto") {
     <response>
         <elem_status>
             <element>number</element>
-            <status>$number_status</status>
+            <status>$card_number_status</status>
         </elem_status>
         <elem_status>
             <element>password</element>

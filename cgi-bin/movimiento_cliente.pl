@@ -1,5 +1,17 @@
 #!perl/bin/perl.exe
 
+# Recibe: type, amount
+# Retorna:
+# <errors>
+#     <error>
+#         <element>elemento</element>
+#         <message>mensaje</message>
+#     </error>
+#     <error>
+#         ...
+#     </error>
+# </errors>
+
 use strict;
 use warnings;
 use CGI;
@@ -9,13 +21,17 @@ use DBI;
 
 my $cgi = CGI->new;
 $cgi->charset("UTF-8");
-my $u = "movements_query";
-my $p = "4Tfgy*5eEjnv[rjN";
-my $dsn = "dbi:mysql:database=banca;host=127.0.0.1";
+my $type = $cgi->param("type");
+my $amount = $cgi->param("amount");
+
+my $u = "query";
+my $p = "YR4AFJUC3nyRmasY";
+my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
 my $dbh = DBI->connect($dsn, $u, $p);
 
 my %cookies = CGI::Cookie->fetch();
 my $session_cookie = $cookies{"client_session_id"};
+
 our $card_id;
 our $account_id;
 if ($session_cookie) {
@@ -24,9 +40,6 @@ if ($session_cookie) {
     $card_id = $session->param("card_id");
     $account_id = $session->param("account_id");
 }
-
-my $type = $cgi->param("type");
-my $amount = $cgi->param("amount");
 
 sub checkType {
     my $type = $_[0];

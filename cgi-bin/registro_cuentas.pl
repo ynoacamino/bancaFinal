@@ -1,5 +1,17 @@
 #!perl/bin/perl.exe
 
+# Recibe: card_number, dni
+# Retorna:
+# <errors>
+#     <error>
+#         <element>elemento</element>
+#         <message>mensaje</message>
+#     </error>
+#     <error>
+#         ...
+#     </error>
+# </errors>
+
 use strict;
 use warnings;
 use CGI;
@@ -9,14 +21,14 @@ use DBI;
 
 my $cgi = CGI->new;
 $cgi->charset("UTF-8");
-my $u = "accounts_query";
-my $p = "yK\@tKA]c-.nHnn7Y";
-my $dsn = "dbi:mysql:database=banca;host=127.0.0.1";
+my $card_number = $cgi->param("card_number");
+my $dni = $cgi->param("dni");
+
+my $u = "query";
+my $p = "YR4AFJUC3nyRmasY";
+my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
 my $dbh = DBI->connect($dsn, $u, $p);
 
-my $number = $cgi->param("number");
-my $currency = $cgi->param("currency");
-my $dni = $cgi->param("dni");
 our @card_id;
 our @client_id;
 
@@ -33,17 +45,6 @@ sub checkNumber {
     @card_id = $sth->fetchrow_array;
     if (!@card_id) {
         return "Tarjeta no existente";
-    }
-    return "Correcto";
-}
-
-sub checkCurrency {
-    my $currency = $_[0];
-    if (!$currency) {
-        return "Marque una moneda";
-    }
-    if ($currency !~ /^[sd]$/) {
-        return "Moneda no valida";
     }
     return "Correcto";
 }
@@ -65,11 +66,11 @@ sub checkDNI {
     return "Correcto";
 }
 
-my $number_status = checkNumber($number);
+my $card_number_status = checkNumber($card_number);
 my $currency_status = checkCurrency($currency);
 my $dni_status = checkDNI($dni);
 
-if ($number_status eq "Correcto" && $currency_status eq "Correcto" && $dni_status eq "Correcto") {
+if ($card_number_status eq "Correcto" && $currency_status eq "Correcto" && $dni_status eq "Correcto") {
     my $sth = $dbh->prepare("INSERT INTO cuentas (numero, moneda, tarjeta_id, cliente_id) VALUES (?, ?, ?, ?)");
     $sth->execute($number, $currency, $card_id[0], $client_id[0]);
     print $cgi->header("text/html");
@@ -80,7 +81,7 @@ if ($number_status eq "Correcto" && $currency_status eq "Correcto" && $dni_statu
     <response>
         <elem_status>
             <element>number</element>
-            <status>$number_status</status>
+            <status>$card_number_status</status>
         </elem_status>
         <elem_status>
             <element>currency</element>

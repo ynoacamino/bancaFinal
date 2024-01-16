@@ -1,5 +1,17 @@
 #!perl/bin/perl.exe
 
+# Recibe: card_number, password
+# Retorna:
+# <errors>
+#     <error>
+#         <element>elemento</element>
+#         <message>mensaje</message>
+#     </error>
+#     <error>
+#         ...
+#     </error>
+# </errors>
+
 use strict;
 use warnings;
 use CGI;
@@ -9,13 +21,13 @@ use DBI;
 
 my $cgi = CGI->new;
 $cgi->charset("UTF-8");
-my $number = $cgi->param("number");
+my $card_number = $cgi->param("card_number");
 my $password = $cgi->param("password");
 my $session_time = 600;
 
-my $u = "bank_query";
-my $p = "ejK9ppZXv]x1ZJE9";
-my $dsn = "dbi:mysql:database=banca;host=127.0.0.1";
+my $u = "query";
+my $p = "YR4AFJUC3nyRmasY";
+my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
 my $dbh = DBI->connect($dsn, $u, $p);
 
 my $sth = $dbh->prepare("SELECT * FROM tarjetas WHERE numero=? AND clave=?");
@@ -38,7 +50,7 @@ if (@card) {
     $session->expire(time + $session_time);
     $session->flush();
 
-    my $cookie = $cgi->cookie(-name => "client_session_id",
+    my $cookie = $cgi->cookie(-name => "session_id_cliente",
                             -value => $session->id(),
                             -expires => time + $session_time,
                             "-max-age" => time + $session_time);

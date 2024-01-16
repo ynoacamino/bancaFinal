@@ -1,5 +1,17 @@
 #!perl/bin/perl.exe
 
+# Recibe: dni, name, plastname, mlastname, bdate
+# Retorna:
+# <errors>
+#     <error>
+#         <element>elemento</element>
+#         <message>mensaje</message>
+#     </error>
+#     <error>
+#         ...
+#     </error>
+# </errors>
+
 use strict;
 use warnings;
 use CGI;
@@ -9,16 +21,16 @@ use DBI;
 
 my $cgi = CGI->new;
 $cgi->charset("UTF-8");
-my $u = "clients_query";
-my $p = "EEDcFTy180We(KX7";
-my $dsn = "dbi:mysql:database=banca;host=127.0.0.1";
-my $dbh = DBI->connect($dsn, $u, $p);
-
 my $dni = $cgi->param("dni");
-my $names = $cgi->param("names");
+my $name = $cgi->param("name");
 my $plastname = $cgi->param("plastname");
 my $mlastname = $cgi->param("mlastname");
 my $bdate = $cgi->param("bdate");
+
+my $u = "query";
+my $p = "YR4AFJUC3nyRmasY";
+my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
+my $dbh = DBI->connect($dsn, $u, $p);
 
 sub checkDNI {
     my $dni = $_[0];
@@ -31,15 +43,15 @@ sub checkDNI {
     return "Correcto";
 }
 
-sub checkNames {
-    my $names = $_[0];
-    if (!$names) {
+sub checkName {
+    my $name = $_[0];
+    if (!$name) {
         return "Ingrese un nombre";
     }
-    if (length($names) > 40) {
+    if (length($name) > 40) {
         return "Nombre muy largo";
     }
-    if ($names !~ /^\w{1,40}$/) {
+    if ($name !~ /^\w{1,40}$/) {
         return "Nombre no valido";
     }
     return "Correcto";
@@ -85,14 +97,14 @@ sub checkBdate {
 }
 
 my $dni_status = checkDNI($dni);
-my $names_status = checkNames($names);
+my $name_status = checkName($name);
 my $plastname_status = checkPlastname($plastname);
 my $mlastname_status = checkMlastname($mlastname);
 my $bdate_status = checkBdate($bdate);
 
-if ($dni_status eq "Correcto" && $names_status eq "Correcto" && $plastname_status eq "Correcto" && $mlastname_status eq "Correcto" && $bdate_status eq "Correcto") {
+if ($dni_status eq "Correcto" && $name_status eq "Correcto" && $plastname_status eq "Correcto" && $mlastname_status eq "Correcto" && $bdate_status eq "Correcto") {
     my $sth = $dbh->prepare("INSERT INTO clientes (dni, nombres, paterno, materno, nacimiento) VALUES (?, ?, ?, ?, ?)");
-    $sth->execute($dni, $names, $plastname, $mlastname, $bdate);
+    $sth->execute($dni, $name, $plastname, $mlastname, $bdate);
     print $cgi->header("text/html");
     print "correct";
 } else {
@@ -104,8 +116,8 @@ if ($dni_status eq "Correcto" && $names_status eq "Correcto" && $plastname_statu
             <status>$dni_status</status>
         </elem_status>
         <elem_status>
-            <element>names</element>
-            <status>$names_status</status>
+            <element>name</element>
+            <status>$name_status</status>
         </elem_status>
         <elem_status>
             <element>plastname</element>
