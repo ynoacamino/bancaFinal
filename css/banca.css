@@ -1,45 +1,58 @@
-/* Logo Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
 .logo {
-    width: 125px;
+  width: 125px;
 }
 
 .logo:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-/* Input Styles */
-input[type="text"]::placeholder,
-input[type="password"]::placeholder {
+.content {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.inputText::placeholder {
     color: #99a1ad;
 }
 
-input[type="text"]:hover::placeholder,
-input[type="password"]:hover::placeholder {
+.inputText:hover::placeholder {
     color: #606c7f;
     border-color: #0a47f0;
 }
 
-input[type="text"],
-input[type="password"] {
-    display: block;
-    margin: auto;
-    padding: 15px;
-    border-style: solid;
-    border-radius: 10px;
-    border-width: 1px;
-    border-color: #868f9e;
-    width: 900px;
-    font-size: 20px;
-    color: #202e44;
+.inputText {
+  display: block;
+  margin: auto;
+  padding: 15px;
+  border-style: solid;
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: #868f9e;
+  width: 100%;
+  font-size: 20px;
+  color: #202e44;
+  max-width: 400px;
 }
 
-input[type="text"]:hover,
-input[type="password"]:hover {
+.inputText:hover {
     border-color: #0a47f0;
 }
 
-input[type="text"]:focus,
-input[type="password"]:focus {
+.inputText:focus {
     border-color: #0a47f0;
     outline: none;
     border-width: 2px;
@@ -51,24 +64,31 @@ input[type="password"][class=error] {
 }
 
 /* Button Styles */
-input[type="button"] {
-    display: block;
-    border: none;
-    border-radius: 25px;
-    background-color: #ff7800;
-    color: white;
-    margin: auto;
-    width: 450px;
-    font-size: 20px;
-    padding: 15px;
+.submitButton {
+  display: block;
+  border: none;
+  border-radius: 15px;
+  background-color: #ff7800;
+  color: white;
+  margin: auto;
+  max-width: 400px;
+  width: 100%;
+  font-size: 1.2rem;
+  padding: 15px 20px;
 }
 
-input[type="button"]:hover {
+.submitButton:hover {
     background-color: #ff961f;
     box-shadow: 0 4px 4px 0px #c8c8c8;
     cursor: pointer;
 }
 
-input[type="button"]:active {
+.submitButton:active {
     background-color: #e45e00;
+}
+
+.form {
+  display:  flex;
+  flex-direction: column;
+  gap: 20px;
 }

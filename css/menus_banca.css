@@ -1,48 +1,22 @@
 /* Input Styles */
-input[type="text"]::placeholder,
-input[type="password"]::placeholder,
-input[type="date"]::placeholder {
-    color: #99a1ad;
+* {
+    box-sizing: border-box;
+  }
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
 }
 
-input[type="text"]:hover::placeholder,
-input[type="password"]:hover::placeholder,
-input[type="date"]:hover::placeholder {
-    color: #606c7f;
-    border-color: #0a47f0;
-}
-
-input[type="text"],
-input[type="password"],
-input[type="date"] {
-    padding: 10px;
-    width: 1225px;
-    border-style: solid;
-    border-radius: 10px;
-    border-width: 1px;
-    border-color: #868f9e;
-    font-size: 15px;
-    color: #202e44;
-}
-
-input[type="text"]:hover,
-input[type="password"]:hover,
-input[type="date"]:hover {
-    border-color: #0a47f0;
-}
-
-input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="date"]:focus {
-    border-color: #0a47f0;
-    outline: none;
-    border-width: 2px;
-}
-
-input[type="text"][class="error"],
-input[type="password"][class="error"],
-input[type="date"][class="error"] {
-    border-color: #e30425;
+.content {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row-reverse;
+    padding: 0px 20px;
 }
 
 .options {

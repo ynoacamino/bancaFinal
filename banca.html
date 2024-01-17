@@ -13,15 +13,12 @@
 <body>
     <div id="content" class="content">
         <img src="./logo.png" onclick="redirect('./banca.html')" class="logo" />
-        <div style="height: 35px"></div>
+    </div>
+    <div class="form">
         <h1>Ingreso de Clientes</h1>
-        <div style="height: 35px"></div>
-        <input type="text" id="number" placeholder="Número de tarjeta" />
-        <div style="height: 35px"></div>
-        <input type="password" id="password" placeholder="Contraseña" />
-        <div style="height: 35px"></div>
-        <input type="button" class="login" onclick="login()" value="Ingresar" />
-        <div style="margin-block: 25px"></div>
+        <input type="text" id="number" class="inputText"  placeholder="xxxx xxxx xxxx xxxx" required />
+        <input type="password" id="password" placeholder="Contraseña" class="inputText" />
+        <input type="button" class="submitButton" onclick="login()" value="Ingresar"/>
     </div>
 </body>
 
