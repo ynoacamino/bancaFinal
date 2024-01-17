@@ -1,6 +1,6 @@
 #!perl/bin/perl.exe
 
-# Recibe: card_number, dni
+# Recibe: user, password, dni
 # Retorna:
 # <errors>
 #     <error>
@@ -21,35 +21,57 @@ use DBI;
 
 my $cgi = CGI->new;
 $cgi->charset("UTF-8");
-my $card_number = $cgi->param("card_number");
+my $user = $cgi->param("user");
+my $password = $cgi->param("password");
 my $dni = $cgi->param("dni");
 
-my $u = "query";
-my $p = "YR4AFJUC3nyRmasY";
-my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
-my $dbh = DBI->connect($dsn, $u, $p);
+our $client_id;
+my $user_status = check_user($user);
+my $password_status = check_password($password);
+my $dni_status = check_DNI($dni);
 
-our @card_id;
-our @client_id;
+register();
 
-sub checkNumber {
-    my $number = $_[0];
-    if (!$number) {
-        return "Ingrese un número de tarjeta";
+sub register {
+    if (!$user_status && !$password_status && !$dni_status) {
+        my $u = "query";
+        my $p = "YR4AFJUC3nyRmasY";
+        my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
+        my $dbh = DBI->connect($dsn, $u, $p);
+
+        my $sth = $dbh->prepare("INSERT INTO cuentas (usuario, clave, cliente_id) VALUES ($user, $password, $client_id)");
+        $sth->execute;
+        print $cgi->header("text/xml");
+
+        return;
     }
-    if ($number !~ /^\d{16}$/) {
-        return "Número de tarjeta no valido";
-    }
-    my $sth = $dbh->prepare("SELECT * FROM tarjetas WHERE numero=?");
-    $sth->execute($number);
-    @card_id = $sth->fetchrow_array;
-    if (!@card_id) {
-        return "Tarjeta no existente";
-    }
-    return "Correcto";
+
+    print_errors();
 }
 
-sub checkDNI {
+sub check_user {
+    my $card_number = $_[0];
+    my $length = length($card_number);
+    if (!$card_number || $length == 0) {
+        return "Ingrese un usuario.";
+    }
+    if ($length > 30) {
+        return "Usuario muy largo.";
+    }
+}
+
+sub check_password {
+    my $password = $_[0];
+    my $length = length($password);
+    if (!$password || $length == 0) {
+        return "Ingrese una clave.";
+    }
+    if ($length > 30) {
+        return "Clave muy larga.";
+    }
+}
+
+sub check_DNI {
     my $dni = $_[0];
     if (!$dni) {
         return "Ingrese un DNI";
@@ -57,40 +79,27 @@ sub checkDNI {
     if ($dni !~ /^\d{8}$/) {
         return "DNI no valido";
     }
-    my $sth = $dbh->prepare("SELECT * FROM clientes WHERE dni=?");
-    $sth->execute($dni);
-    @client_id = $sth->fetchrow_array;
-    if (!@client_id) {
+    my $sth = $dbh->prepare("SELECT `id` FROM clientes WHERE dni = $dni");
+    $sth->execute;
+    my @row = $sth->fetchrow_array;
+    if (!@row) {
         return "Cliente no existente";
     }
-    return "Correcto";
+    $client_id = $row[0];
 }
 
-my $card_number_status = checkNumber($card_number);
-my $currency_status = checkCurrency($currency);
-my $dni_status = checkDNI($dni);
-
-if ($card_number_status eq "Correcto" && $currency_status eq "Correcto" && $dni_status eq "Correcto") {
-    my $sth = $dbh->prepare("INSERT INTO cuentas (numero, moneda, tarjeta_id, cliente_id) VALUES (?, ?, ?, ?)");
-    $sth->execute($number, $currency, $card_id[0], $client_id[0]);
-    print $cgi->header("text/html");
-    print "correct";
-} else {
+sub print_errors {
     print $cgi->header("text/xml");
-    print<<BLOCK;
-    <response>
-        <elem_status>
-            <element>number</element>
-            <status>$card_number_status</status>
-        </elem_status>
-        <elem_status>
-            <element>currency</element>
-            <status>$currency_status</status>
-        </elem_status>
-        <elem_status>
-            <element>dni</element>
-            <status>$dni_status</status>
-        </elem_status>
-    </response>
-BLOCK
+    print "<errors>\n";
+    for my $key (keys %errors) {
+        if ($errors{$key}) {
+        print<<XML;
+    <error>
+        <element>$key</element>
+        <message>$errors{$key}</message>
+    </error>
+XML
+        }
+    }
+    print "</errors>\n";
 }

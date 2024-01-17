@@ -110,6 +110,7 @@ sub check_type {
 }
 
 sub print_errors {
+    print $cgi->header("text/xml");
     print "<errors>\n";
     for my $key (keys %errors) {
         if ($errors{$key}) {
