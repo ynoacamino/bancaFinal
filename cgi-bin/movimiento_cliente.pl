@@ -1,6 +1,6 @@
 #!perl/bin/perl.exe
 
-# Recibe: card_id, type, amount
+# Recibe: card_id, type (d o w), amount
 # Retorna:
 # <errors>
 #     <error>
@@ -30,8 +30,8 @@ my %cookies = CGI::Cookie->fetch();
 my $session_cookie = $cookies{"session_id_cliente"};
 
 my $card_id_status = check_card_id($card_id);
-my $amount_status = check_amount($amount);
 my $type_status = check_type($type);
+my $amount_status = check_amount($amount);
 
 if ($session_cookie) {
     my $session_id = $session_cookie->value();
@@ -48,7 +48,7 @@ sub transaction {
         my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
         my $dbh = DBI->connect($dsn, $u, $p);
 
-        my $type_num = $type eq "deposit" ? 1 : -1;
+        my $type_num = $type eq "d" ? 1 : -1;
 
         my $sth = $dbh->prepare("INSERT INTO movimientos (tarjeta_id, monto, tipo) VALUES ($card_id, $amount, $type_num)");
         $sth->execute;
@@ -76,7 +76,7 @@ sub check_amount {
     if ($amount !~ /^\d+$/ || $amount < 0) {
         return "Cantidad no valida.";
     }
-    if ($type eq "withdrawal") {
+    if ($type eq "w") {
         my $sth = $dbh->prepare("SELECT SUM(monto*tipo) FROM movimientos WHERE tarjeta_id = $card_id");
         $sth->execute;
         my @sum = $sth->fetchrow_array;
@@ -89,7 +89,10 @@ sub check_amount {
 
 sub check_type {
     my $type = $_[0];
-    if (!&type || ($type ne "deposit" && $type ne "withdrawal")) {
+    if (!$type) {
+        return "Marque un tipo";
+    }
+    if ($type !~ /^[dw]$/) {
         return "Tipo no valido".
     }
 }

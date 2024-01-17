@@ -11,6 +11,7 @@
 #         ...
 #     </error>
 # </errors>
+# o nada si todo esta bien :>
 
 use strict;
 use warnings;
@@ -74,16 +75,16 @@ sub check_password {
 sub check_DNI {
     my $dni = $_[0];
     if (!$dni) {
-        return "Ingrese un DNI";
+        return "Ingrese un DNI.";
     }
     if ($dni !~ /^\d{8}$/) {
-        return "DNI no valido";
+        return "DNI no valido.";
     }
     my $sth = $dbh->prepare("SELECT `id` FROM clientes WHERE dni = $dni");
     $sth->execute;
     my @row = $sth->fetchrow_array;
     if (!@row) {
-        return "Cliente no existente";
+        return "Cliente no existente.";
     }
     $client_id = $row[0];
 }

@@ -1,6 +1,6 @@
 #!perl/bin/perl.exe
 
-# Recibe: card_number, password, currency
+# Recibe: card_number, password, currency (s o d), dni
 # Retorna:
 # <errors>
 #     <error>
@@ -11,6 +11,7 @@
 #         ...
 #     </error>
 # </errors>
+# o nada si todo esta bien :>
 
 use strict;
 use warnings;
@@ -25,79 +26,99 @@ $cgi->charset("UTF-8");
 my $card_number = $cgi->param("card_number");
 my $password = $cgi->param("password");
 my $currency = $cgi->param("currency");
+my $dni = $cgi->param("dni");
 my $current_date = DateTime->now;
 my $expire_date = $current_date->add(years => 7)->ymd;
 
-my $u = "query";
-my $p = "YR4AFJUC3nyRmasY";
-my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
-my $dbh = DBI->connect($dsn, $u, $p);
+our $account_id;
+my $card_number_status = check_card_number($card_number);
+my $password_status = check_password($password);
+my $currency_status = check_currency($currency);
+my $dni_status = check_DNI($dni);
 
-sub checkNumber {
-    my $number = $_[0];
-    if (!$number) {
-        return "Ingrese un número de tarjeta";
+register();
+
+sub register {
+    if (!$card_number_status && !$password_status && !$currency_status && !$dni_status) {
+        my $u = "query";
+        my $p = "YR4AFJUC3nyRmasY";
+        my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
+        my $dbh = DBI->connect($dsn, $u, $p);
+
+        my $sth = $dbh->prepare("INSERT INTO tarjetas (numero, clave, vencimiento, cuenta_id) VALUES (?, ?, ?)");
+        $sth->execute($number, $password, $expire_date);
+        print $cgi->header("text/xml");
+
+        return;
     }
-    if ($number !~ /^\d{16}$/) {
-        return "Número de tarjeta no valido";
-    }
-    my $sth = $dbh->prepare("SELECT * FROM tarjetas WHERE numero=?");
-    $sth->execute($number);
-    my @card_id = $sth->fetchrow_array;
-    if (@card_id) {
-        return "Tarjeta ya existente";
-    }
-    return "Correcto";
+
+    print_errors();
 }
 
-sub checkCurrency {
-    my $currency = $_[0];
-    if (!$currency) {
-        return "Marque una moneda";
+sub check_card_number {
+    my $card_number = $_[0];
+    if (!$card_number) {
+        return "Ingrese un número de tarjeta.";
     }
-    if ($currency !~ /^[sd]$/) {
-        return "Moneda no valida";
+    if ($card_number !~ /^\d{16}$/) {
+        return "Número de tarjeta no valido.";
     }
-    return "Correcto";
 }
 
-sub checkPassword {
+sub check_password {
     my $password = $_[0];
     if (!$password) {
-        return "Ingrese una clave";
+        return "Ingrese una clave.";
     }
     if (length($password) > 30) {
-        return "Clave muy larga";
+        return "Clave muy larga.";
     }
     if (length($password) < 8) {
-        return "Clave muy corta";
+        return "Clave muy corta.";
     }
-    if ($password !~ /^\w{8,30}$/) {
-        return "Clave no valida";
-    }
-    return "Correcto";
 }
 
-my $card_number_status = checkNumber($card_number);
-my $password_status = checkPassword($password);
+sub check_currency {
+    my $currency = $_[0];
+    if (!$currency) {
+        return "Marque una moneda.";
+    }
+    if ($currency !~ /^[sd]$/) {
+        return "Moneda no valida.";
+    }
+}
 
-if ($card_number_status eq "Correcto" && $password_status eq "Correcto") {
-    my $sth = $dbh->prepare("INSERT INTO tarjetas (numero, clave, vencimiento) VALUES (?, ?, ?)");
-    $sth->execute($number, $password, $expire_date);
-    print $cgi->header("text/html");
-    print "correct";
-} else {
+sub check_DNI {
+    my $dni = $_[0];
+    if (!$dni) {
+        return "Ingrese un DNI.";
+    }
+    if ($dni !~ /^\d{8}$/) {
+        return "DNI no valido.";
+    }
+    my $sth = $dbh->prepare("SELECT `cuenta`.`id`
+                            FROM cuentas, clientes
+                            WHERE clientes.dni = '$dni' AND cuentas.cliente_id = 'clientes_id'");
+    $sth->execute;
+    my @row = $sth->fetchrow_array;
+    if (!@row) {
+        return "Cliente no existente."
+    }
+    $client_id = $row[0];
+}
+
+sub print_errors {
     print $cgi->header("text/xml");
-    print<<BLOCK;
-    <response>
-        <elem_status>
-            <element>number</element>
-            <status>$card_number_status</status>
-        </elem_status>
-        <elem_status>
-            <element>password</element>
-            <status>$password_status</status>
-        </elem_status>
-    </response>
-BLOCK
+    print "<errors>\n";
+    for my $key (keys %errors) {
+        if ($errors{$key}) {
+        print<<XML;
+    <error>
+        <element>$key</element>
+        <message>$errors{$key}</message>
+    </error>
+XML
+        }
+    }
+    print "</errors>\n";
 }
