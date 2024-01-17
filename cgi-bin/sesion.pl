@@ -1,6 +1,6 @@
 #!perl/bin/perl.exe
 
-# Recibe: action (check [revisa si la sesion esta activa], close [cierra la sesion]), type (cliente o operario)
+# Recibe: action (check [revisa si la sesion esta activa], close [cierra la sesion]), type (cliente u operario)
 # Retorna:
 # <session>
 #     <logged_in>0 o 1</logged_in>
