@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-01-2024 a las 01:41:00
+-- Tiempo de generación: 17-01-2024 a las 03:39:01
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -43,7 +43,7 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `dni`, `nombres`, `paterno`, `materno`, `nacimiento`, `creado`, `estado`) VALUES
-(1, '54587912', 'Christian Raul', 'Mestas', 'Zegarra', '2006-04-17', '2024-01-16 22:48:26', 1);
+(1, '54587912', 'Christian Raul', 'Mestas', 'Zegarra', '2006-04-17', '2024-01-17 02:19:50', 1);
 
 -- --------------------------------------------------------
 
@@ -53,9 +53,10 @@ INSERT INTO `clientes` (`id`, `dni`, `nombres`, `paterno`, `materno`, `nacimient
 
 CREATE TABLE `cuentas` (
   `id` int(11) NOT NULL,
+  `usuario` varchar(30) NOT NULL,
+  `clave` varchar(30) NOT NULL,
   `creado` timestamp NOT NULL DEFAULT current_timestamp(),
   `estado` tinyint(1) NOT NULL DEFAULT 1,
-  `tarjeta_id` int(11) NOT NULL,
   `cliente_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -63,8 +64,8 @@ CREATE TABLE `cuentas` (
 -- Volcado de datos para la tabla `cuentas`
 --
 
-INSERT INTO `cuentas` (`id`, `creado`, `estado`, `tarjeta_id`, `cliente_id`) VALUES
-(1, '2024-01-16 22:48:55', 1, 1, 1);
+INSERT INTO `cuentas` (`id`, `usuario`, `clave`, `creado`, `estado`, `cliente_id`) VALUES
+(1, 'cmestasz', '123456789', '2024-01-17 02:20:14', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -75,11 +76,18 @@ INSERT INTO `cuentas` (`id`, `creado`, `estado`, `tarjeta_id`, `cliente_id`) VAL
 CREATE TABLE `movimientos` (
   `id` int(11) NOT NULL,
   `tarjeta_id` int(11) NOT NULL,
-  `cuenta_id` int(11) NOT NULL,
   `monto` float NOT NULL,
   `tipo` tinyint(4) NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `movimientos`
+--
+
+INSERT INTO `movimientos` (`id`, `tarjeta_id`, `monto`, `tipo`, `fecha`) VALUES
+(3, 1, 50000, 1, '2024-01-17 02:21:50'),
+(5, 1, 25000, -1, '2024-01-17 02:23:23');
 
 -- --------------------------------------------------------
 
@@ -110,15 +118,16 @@ CREATE TABLE `tarjetas` (
   `vencimiento` datetime NOT NULL,
   `sellado` tinyint(1) NOT NULL DEFAULT 1,
   `estado` tinyint(1) NOT NULL DEFAULT 1,
-  `moneda` varchar(1) NOT NULL
+  `moneda` varchar(1) NOT NULL,
+  `cuenta_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `tarjetas`
 --
 
-INSERT INTO `tarjetas` (`id`, `numero`, `clave`, `creado`, `vencimiento`, `sellado`, `estado`, `moneda`) VALUES
-(1, '6451243451642121', '123456789', '2024-01-16 22:46:48', '2024-01-16 23:46:29', 1, 1, 's');
+INSERT INTO `tarjetas` (`id`, `numero`, `clave`, `creado`, `vencimiento`, `sellado`, `estado`, `moneda`, `cuenta_id`) VALUES
+(1, '5565894512347787', '123456789', '2024-01-17 02:20:32', '2024-01-17 03:20:19', 1, 1, 's', 1);
 
 --
 -- Índices para tablas volcadas
@@ -128,24 +137,21 @@ INSERT INTO `tarjetas` (`id`, `numero`, `clave`, `creado`, `vencimiento`, `sella
 -- Indices de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `dni` (`dni`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `cliente_id` (`cliente_id`) USING BTREE,
-  ADD UNIQUE KEY `tarjeta_id` (`tarjeta_id`);
+  ADD KEY `cliente_id` (`cliente_id`) USING BTREE;
 
 --
 -- Indices de la tabla `movimientos`
 --
 ALTER TABLE `movimientos`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `tarjeta_id` (`tarjeta_id`,`cuenta_id`) USING BTREE,
-  ADD KEY `cuenta_id` (`cuenta_id`) USING BTREE;
+  ADD KEY `tarjeta_id` (`tarjeta_id`) USING BTREE;
 
 --
 -- Indices de la tabla `operarios`
@@ -158,7 +164,7 @@ ALTER TABLE `operarios`
 --
 ALTER TABLE `tarjetas`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `numero` (`numero`);
+  ADD KEY `cuenta_id` (`cuenta_id`) USING BTREE;
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -180,7 +186,7 @@ ALTER TABLE `cuentas`
 -- AUTO_INCREMENT de la tabla `movimientos`
 --
 ALTER TABLE `movimientos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `operarios`
@@ -202,15 +208,19 @@ ALTER TABLE `tarjetas`
 -- Filtros para la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
-  ADD CONSTRAINT `cuentas_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `cuentas_ibfk_2` FOREIGN KEY (`tarjeta_id`) REFERENCES `tarjetas` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `cliente_id` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `movimientos`
 --
 ALTER TABLE `movimientos`
-  ADD CONSTRAINT `movimientos_ibfk_1` FOREIGN KEY (`tarjeta_id`) REFERENCES `tarjetas` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `movimientos_ibfk_2` FOREIGN KEY (`cuenta_id`) REFERENCES `cuentas` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `movimientos_ibfk_1` FOREIGN KEY (`tarjeta_id`) REFERENCES `tarjetas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `tarjetas`
+--
+ALTER TABLE `tarjetas`
+  ADD CONSTRAINT `tarjetas_ibfk_1` FOREIGN KEY (`cuenta_id`) REFERENCES `cuentas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

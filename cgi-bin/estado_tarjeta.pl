@@ -1,9 +1,8 @@
 #!perl/bin/perl.exe
 
-# Recibe: card_id
+# Recibe: nada
 # Retorna: 
 # <status> 
-#     <balance>saldo</balance> 
 #     <movement>
 #         <amount>cantidad</amount>
 #         <type>tipo</type>
@@ -12,6 +11,7 @@
 #     <movement>
 #         ...
 #     </movement>
+#     <balance>saldo</balance> 
 # </status>
 
 use strict;
@@ -23,48 +23,47 @@ use DBI;
 
 my $cgi = CGI->new;
 $cgi->charset("UTF-8");
-my $card_id = $cgi->param("card_id");
-
-my $u = "query";
-my $p = "YR4AFJUC3nyRmasY";
-my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
-my $dbh = DBI->connect($dsn, $u, $p);
 
 my %cookies = CGI::Cookie->fetch();
-my $session_cookie = $cookies{"client_session_id"};
+my $session_cookie = $cookies{"session_id_cliente"};
 
 if ($session_cookie) {
     my $session_id = $session_cookie->value();
     my $session = CGI::Session->load($session_id);
-    my $account_id = $session->param("account_id");
+    my $card_id = $session->param("card_id");
 
-        my $sth = $dbh->prepare("SELECT * FROM cuentas WHERE id=?");
+    my $u = "query";
+    my $p = "YR4AFJUC3nyRmasY";
+    my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
+    my $dbh = DBI->connect($dsn, $u, $p);
+
+    my $sth = $dbh->prepare("SELECT `tarjetas`.`moneda`, `movimientos`.`monto`, `movimientos`.`tipo`, `movimientos`.`fecha`
+                            FROM tarjetas, movimientos
+                            WHERE tarjetas.id = '$card_id'");
     $sth->execute($account_id);
-    my @account = $sth->fetchrow_array;
-    my $currency = $account[4] eq "s" ? "S/." : "\$";
 
-    $sth = $dbh->prepare("SELECT * FROM movimientos WHERE tarjeta_id=? AND cuenta_id=?");
-    $sth->execute($card_id, $account_id);
-
-    my $total = 0;
+    my @row = $sth->fetchrow_array;
+    my $currency = $row[0] eq "s" ? "S/." : "\$";
+    my $total = $row[1] * $row[2];
     print $cgi->header("text/xml");
-    print "<response>\n";
-    while (my @row = $sth->fetchrow_array) {
-        $total = $total + ($row[3] * $row[4]);
-        my $type = $row[4] == 1 ? "DEPOSITO" : "RETIRO";
-        my $amount = $currency.$row[3];
+    print "<status>\n";
+    while (@row = $sth->fetchrow_array) {
+        $total = $total + ($row[1] * $row[2]);
+        my $amount = $currency.$row[1];
+        my $type = $row[2] == 1 ? "DEPOSITO" : "RETIRO";
+        my $date = $row[3];
         print<<BLOCK;
         <movement>
             <amount>$amount</amount>
             <type>$type</type>
-            <date>$row[5]</date>
+            <date>$date</date>
         </movement>
 BLOCK
     }
     my $balance = $currency.$total;
     print<<BLOCK;
         <balance>$balance</balance>
-    </response>
+    </status>
 BLOCK
 }
 
