@@ -30,9 +30,7 @@ my $card_number_status = check_card_number($card_number);
 my $password_status = check_password($password);
 my %errors = (card_number => $card_number_status, password => $password_status);
 
-
 login();
-
 
 sub login {
     if (!$card_number_status && !$password_status) {
