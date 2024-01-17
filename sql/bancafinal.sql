@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-01-2024 a las 03:39:01
+-- Tiempo de generación: 17-01-2024 a las 04:43:38
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -137,7 +137,8 @@ INSERT INTO `tarjetas` (`id`, `numero`, `clave`, `creado`, `vencimiento`, `sella
 -- Indices de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `dni` (`dni`);
 
 --
 -- Indices de la tabla `cuentas`
@@ -164,6 +165,7 @@ ALTER TABLE `operarios`
 --
 ALTER TABLE `tarjetas`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `numero` (`numero`),
   ADD KEY `cuenta_id` (`cuenta_id`) USING BTREE;
 
 --
