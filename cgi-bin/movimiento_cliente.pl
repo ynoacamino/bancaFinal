@@ -1,6 +1,6 @@
 #!perl/bin/perl.exe
 
-# Recibe: type, amount
+# Recibe: card_id, type, amount
 # Retorna:
 # <errors>
 #     <error>
@@ -11,6 +11,7 @@
 #         ...
 #     </error>
 # </errors>
+# o nada si todo esta bien
 
 use strict;
 use warnings;
@@ -21,81 +22,89 @@ use DBI;
 
 my $cgi = CGI->new;
 $cgi->charset("UTF-8");
+my $card_id = $cgi->param("card_id");
 my $type = $cgi->param("type");
 my $amount = $cgi->param("amount");
 
-my $u = "query";
-my $p = "YR4AFJUC3nyRmasY";
-my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
-my $dbh = DBI->connect($dsn, $u, $p);
-
 my %cookies = CGI::Cookie->fetch();
-my $session_cookie = $cookies{"client_session_id"};
+my $session_cookie = $cookies{"session_id_cliente"};
 
-our $card_id;
-our $account_id;
+my $card_id_status = check_card_id($card_id);
+my $amount_status = check_amount($amount);
+my $type_status = check_type($type);
+
 if ($session_cookie) {
     my $session_id = $session_cookie->value();
     my $session = CGI::Session->load($session_id);
-    $card_id = $session->param("card_id");
     $account_id = $session->param("account_id");
+
+    transaction();
 }
 
-sub checkType {
-    my $type = $_[0];
-    if ($type ne "deposit" && $type ne "withdrawal") {
-        return "Tipo no valido"
+sub transaction {
+    if (!card_id_status && !$amount_status && !$type_status) {
+        my $u = "query";
+        my $p = "YR4AFJUC3nyRmasY";
+        my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
+        my $dbh = DBI->connect($dsn, $u, $p);
+
+        my $type_num = $type eq "deposit" ? 1 : -1;
+
+        my $sth = $dbh->prepare("INSERT INTO movimientos (tarjeta_id, monto, tipo) VALUES ($card_id, $amount, $type_num)");
+        $sth->execute;
+        print $cgi->header("text/xml");
+
+        return;
     }
-    return "Correcto";
+
+    print_errors();
 }
 
-sub checkAmount {
+sub check_card_id {
+    my $card_id = $_[0];
+    my $length = length($card_id);
+    if (!$card_id || $length == 0) {
+        return "Tarjeta no valida.";
+    }
+}
+
+sub check_amount {
     my $amount = $_[0];
     if (!$amount) {
-        return "Ingrese una cantidad";
+        return "Ingrese una cantidad.";
     }
     if ($amount !~ /^\d+$/ || $amount < 0) {
-        return "Cantidad no valida";
+        return "Cantidad no valida.";
     }
     if ($type eq "withdrawal") {
-        my $sth = $dbh->prepare("SELECT SUM(monto*tipo) FROM movimientos WHERE tarjeta_id=? AND cuenta_id=?");
-        $sth->execute($card_id, $account_id);
+        my $sth = $dbh->prepare("SELECT SUM(monto*tipo) FROM movimientos WHERE tarjeta_id = $card_id");
+        $sth->execute;
         my @sum = $sth->fetchrow_array;
         my $balance = $sum[0] || 0;
         if ($balance - $amount < 0) {
-            return "Balance negativo"
+            return "Balance negativo."
         }
     }
-    return "Correcto";
 }
 
-my $amount_status = checkAmount($amount);
-my $type_status = checkType($type);
-
-if ($amount_status eq "Correcto" && $type_status eq "Correcto") {
-    my $type_num;
-    if ($type eq "deposit") {
-        $type_num = 1;
-    } else {
-        $type_num = -1;
+sub check_type {
+    my $type = $_[0];
+    if (!&type || ($type ne "deposit" && $type ne "withdrawal")) {
+        return "Tipo no valido".
     }
+}
 
-    my $sth = $dbh->prepare("INSERT INTO movimientos (tarjeta_id, cuenta_id, monto, tipo) VALUES (?, ?, ?, ?)");
-    $sth->execute($card_id, $account_id, $amount, $type_num);
-    print $cgi->header("text/html");
-    print "correct";
-} else {
-    print $cgi->header("text/xml");
-    print<<BLOCK;
-    <response>
-        <elem_status>
-            <element>amount</element>
-            <status>$amount_status</status>
-        </elem_status>
-        <elem_status>
-            <element>type</element>
-            <status>$type_status</status>
-        </elem_status>
-    </response>
-BLOCK
+sub print_errors {
+    print "<errors>\n";
+    for my $key (keys %errors) {
+        if ($errors{$key}) {
+        print<<XML;
+    <error>
+        <element>$key</element>
+        <message>$errors{$key}</message>
+    </error>
+XML
+        }
+    }
+    print "</errors>\n";
 }

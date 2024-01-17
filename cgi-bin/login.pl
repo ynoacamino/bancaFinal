@@ -47,10 +47,10 @@ sub login {
                     FROM cuentas, clientes
                     WHERE cuentas.usuario = '$user' AND cuentas.clave = '$password' AND cuentas.cliente_id = clientes.id";
         } else {
-            $query = "SELECT `nombre` FROM usuarios WHERE usuario='$user' AND clave='$password'";
+            $query = "SELECT `nombre` FROM operarios WHERE usuario='$user' AND clave='$password'";
         }
         my $sth = $dbh->prepare($query);
-        $sth->execute();
+        $sth->execute;
 
         my @person = $sth->fetchrow_array;
         if (@person) {
