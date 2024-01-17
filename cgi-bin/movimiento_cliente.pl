@@ -11,7 +11,7 @@
 #         ...
 #     </error>
 # </errors>
-# o nada si todo esta bien
+# o nada si todo esta bien :>
 
 use strict;
 use warnings;

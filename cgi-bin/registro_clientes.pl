@@ -11,6 +11,7 @@
 #         ...
 #     </error>
 # </errors>
+# o nada si todo esta bien :>
 
 use strict;
 use warnings;
@@ -27,110 +28,103 @@ my $plastname = $cgi->param("plastname");
 my $mlastname = $cgi->param("mlastname");
 my $bdate = $cgi->param("bdate");
 
-my $u = "query";
-my $p = "YR4AFJUC3nyRmasY";
-my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
-my $dbh = DBI->connect($dsn, $u, $p);
+my $dni_status = check_DNI($dni);
+my $name_status = check_name($name);
+my $plastname_status = check_plastname($plastname);
+my $mlastname_status = check_mlastname($mlastname);
+my $bdate_status = check_bdate($bdate);
 
-sub checkDNI {
+register();
+
+sub register {
+    if (!$dni_status && !$name_status && !$plastname_status && !$mlastname_status && !bdate_status) {
+        my $u = "query";
+        my $p = "YR4AFJUC3nyRmasY";
+        my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
+        my $dbh = DBI->connect($dsn, $u, $p);
+
+        my $sth = $dbh->prepare("INSERT INTO clientes (dni, nombres, paterno, materno, nacimiento) VALUES ($dni, $name, $plastname, $mlastname, $bdate)");
+        $sth->execute();
+        print $cgi->header("text/xml");
+
+        return;
+    }
+
+    print_errors();
+}
+
+sub check_DNI {
     my $dni = $_[0];
     if (!$dni) {
-        return "Ingrese un DNI";
+        return "Ingrese un DNI.";
     }
     if ($dni !~ /^\d{8}$/) {
-        return "DNI no valido";
+        return "DNI no valido.";
     }
-    return "Correcto";
 }
 
-sub checkName {
+sub check_name {
     my $name = $_[0];
     if (!$name) {
-        return "Ingrese un nombre";
+        return "Ingrese un nombre.";
     }
     if (length($name) > 40) {
-        return "Nombre muy largo";
+        return "Nombre muy largo.";
     }
     if ($name !~ /^\w{1,40}$/) {
-        return "Nombre no valido";
+        return "Nombre no valido.";
     }
-    return "Correcto";
 }
 
-sub checkPlastname {
+sub check_plastname {
     my $plastname = $_[0];
+    my $length = length($plastname);
     if (!$plastname) {
-        return "Ingrese un apellido paterno";
+        return "Ingrese un apellido paterno.";
     }
-    if (length($plastname) > 30) {
-        return "Apellido paterno muy largo";
+    if ($length > 30) {
+        return "Apellido paterno muy largo.";
     }
     if ($plastname !~ /^\w{1,30}$/) {
-        return "Apellido paterno no valido";
+        return "Apellido paterno no valido.";
     }
-    return "Correcto";
 }
 
-sub checkMlastname {
+sub check_mlastname {
     my $mlastname = $_[0];
+    my $length = length($mlastname);
     if (!$mlastname) {
-        return "Ingrese un apellido materno";
+        return "Ingrese un apellido materno.";
     }
-    if (length($mlastname) > 30) {
-        return "Apellido materno muy largo";
+    if ($length > 30) {
+        return "Apellido materno muy largo.";
     }
     if ($mlastname !~ /^\w{1,30}$/) {
-        return "Apellido materno no valido";
+        return "Apellido materno no valido.";
     }
-    return "Correcto";
 }
 
-sub checkBdate {
+sub check_bdate {
     my $bdate = $_[0];
     if (!$bdate) {
-        return "Ingrese una fecha de nacimiento";
+        return "Ingrese una fecha de nacimiento.";
     }
     if ($bdate !~ /^\d{4}\-\d{2}\-\d{2}$/) {
-        return "Fecha de nacimiento no valida";
+        return "Fecha de nacimiento no valida.";
     }
-    return "Correcto";
 }
 
-my $dni_status = checkDNI($dni);
-my $name_status = checkName($name);
-my $plastname_status = checkPlastname($plastname);
-my $mlastname_status = checkMlastname($mlastname);
-my $bdate_status = checkBdate($bdate);
-
-if ($dni_status eq "Correcto" && $name_status eq "Correcto" && $plastname_status eq "Correcto" && $mlastname_status eq "Correcto" && $bdate_status eq "Correcto") {
-    my $sth = $dbh->prepare("INSERT INTO clientes (dni, nombres, paterno, materno, nacimiento) VALUES (?, ?, ?, ?, ?)");
-    $sth->execute($dni, $name, $plastname, $mlastname, $bdate);
-    print $cgi->header("text/html");
-    print "correct";
-} else {
-    print $cgi->header("text/xml");
-    print<<BLOCK;
-    <response>
-        <elem_status>
-            <element>dni</element>
-            <status>$dni_status</status>
-        </elem_status>
-        <elem_status>
-            <element>name</element>
-            <status>$name_status</status>
-        </elem_status>
-        <elem_status>
-            <element>plastname</element>
-            <status>$plastname_status</status>
-        </elem_status>
-        <elem_status>
-            <element>mlastname</element>
-            <status>$mlastname_status</status>
-        </elem_status>
-        <elem_status>
-            <element>bdate</element>
-            <status>$bdate_status</status>
-        </elem_status>
-    </response>
-BLOCK
+sub print_errors {
+    print "<errors>\n";
+    for my $key (keys %errors) {
+        if ($errors{$key}) {
+        print<<XML;
+    <error>
+        <element>$key</element>
+        <message>$errors{$key}</message>
+    </error>
+XML
+        }
+    }
+    print "</errors>\n";
 }
