@@ -31,9 +31,9 @@ function updateTimer() {
 }
 
 function closeSession() {
-    fetch2([], ["action=close", "type=operario", "sesion.pl", function(response) {
+    fetch2([], ["action=close", "type=operario"], "sesion.pl", function(response) {
         redirectBack();
-    }])
+    })
 }
 
 function redirectBack() {
