@@ -20,7 +20,7 @@ my $action = $cgi->param("action");
 my $type = $cgi->param("type");
 
 my %cookies = CGI::Cookie->fetch();
-my $session_cookie = $cookies{"id_session_$type"};
+my $session_cookie = $cookies{"session_id_$type"};
 
 print ($cgi->header("text/xml"));
 print "<session>\n";
@@ -29,9 +29,13 @@ if ($action eq "check") {
     if ($session_cookie) {
         my $session_id = $session_cookie->value();
         my $session = CGI::Session->load($session_id);
-        my $name = $session->param("session_name");
+        my $name = $session->param("name");
         my $expire_time = $session->expires() - time;
-        print "<logged_in>1</logged_in>\n<name>$name</name>\n<expire_time>$expire_time</expire_time>";
+        print<<XML;
+        <logged_in>1</logged_in>
+        <name>$name</name>
+        <expire_time>$expire_time</expire_time>
+XML
     } else {
         print "<logged_in>0</logged_in>\n";
     }

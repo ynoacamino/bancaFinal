@@ -28,7 +28,7 @@ function createAccount() {
         }
     };
 
-    xhttp.open("POST", "./cgi-bin/cuentas.pl", true);
+    xhttp.open("POST", "./cgi-bin/registro_cuentas.pl", true);
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=ISO-8859-1');
     xhttp.send("number=" + numberInput.value + "&currency=" + currencyInput.value + "&dni=" + dniInput.value);
 }

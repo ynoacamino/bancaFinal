@@ -43,13 +43,13 @@ function request(action, callback) {
             callback(xhttp.responseXML);
         }
     };
-    xhttp.open("GET", "./cgi-bin/index_banca.pl?action=" + action, true);
+    xhttp.open("POST", "./cgi-bin/sesion.pl?type=cliente&action=" + action, true);
     xhttp.send();
 }
 
 function redirectBack() {
     alert("Su sesión ha expirado");
-    window.location = "./banca.html";
+    window.location = "./login_clientes.html";
 }
 
 function createStatusElements(xhttp) {

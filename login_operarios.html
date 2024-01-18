@@ -3,24 +3,24 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Ingreso de Usuarios</title>
+    <title>Ingreso de Operarios</title>
     <link rel="stylesheet" href="./css/estilos_generales.css" />
-    <link rel="stylesheet" href="./css/usuarios.css" />
+    <link rel="stylesheet" href="./css/login_operarios.css" />
     <script src="./scripts/utilidades.js"></script>
-    <script src="./scripts/usuarios.js"></script>
+    <script src="./scripts/login_operarios.js"></script>
 </head>
 
 <body>
     <div id="content" class="content">
-        <img src="./logo.png" onclick="redirect('./usuarios.html')" class="logo" />
+        <img src="./logo.png" onclick="redirect('./login_operarios.html')" class="logo" />
         <div style="height: 35px"></div>
-        <h1>Ingreso de Usuarios</h1>
+        <h1>Ingreso de Operarios</h1>
         <div style="height: 35px"></div>
         <input type="text" id="user" placeholder="Usuario" />
         <div style="height: 35px"></div>
         <input type="password" id="password" placeholder="Contraseña" />
         <div style="height: 35px"></div>
-        <input type="button" class="login" onclick="login()" value="Ingresar" />
+        <input type="button" id="login" class="login" onclick="login()" value="Ingresar" />
         <div style="margin-block: 25px"></div>
     </div>
 </body>

@@ -69,7 +69,7 @@ sub login {
                                     -value => $session->id(),
                                     -expires => time + $session_time,
                                     "-max-age" => time + $session_time);
-            print $cgi->header("text/xml", -cookie => $cookie);
+            $cookie->bake;
 
             return;
         } else {

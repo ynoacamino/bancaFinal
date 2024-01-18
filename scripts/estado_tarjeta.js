@@ -19,7 +19,7 @@ function getStatus() {
         }
     };
 
-    xhttp.open("POST", "./cgi-bin/estado.pl", true);
+    xhttp.open("POST", "./cgi-bin/estado_tarjeta.pl", true);
     xhttp.send();
 }
 

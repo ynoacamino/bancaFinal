@@ -21,7 +21,7 @@ function createCard() {
         }
     };
 
-    xhttp.open("POST", "./cgi-bin/tarjetas.pl", true);
+    xhttp.open("POST", "./cgi-bin/registro_tarjetas.pl", true);
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=ISO-8859-1');
     xhttp.send("number=" + numberInput.value + "&password=" + passwordInput.value);
 }

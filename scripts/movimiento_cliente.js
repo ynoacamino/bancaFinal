@@ -10,14 +10,14 @@ function doMovement() {
             const response = xhttp.responseText;
             if (response == "correct") {
                 alert("Movimiento realizado correctamente");
-                location = "./index_banca.html";
+                location = "./index_clientes.html";
             } else {
                 createStatusElements(xhttp);
             }
         }
     };
 
-    xhttp.open("POST", "./cgi-bin/movimientos.pl", true);
+    xhttp.open("POST", "./cgi-bin/movimiento_cliente.pl", true);
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=ISO-8859-1');
     xhttp.send("type=" + typeInput.value + "&amount=" + amountInput.value);
 }

@@ -3,11 +3,11 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Creación de clientes</title>
+    <title>Creación de tarjetas</title>
     <link rel="stylesheet" href="./css/estilos_generales.css" />
     <link rel="stylesheet" href="./css/menus_usuarios.css" />
     <script src="./scripts/menus_usuarios.js"></script>
-    <script src="./scripts/clientes.js"></script>
+    <script src="./scripts/registro_tarjetas.js"></script>
 </head>
 
 <body>
@@ -20,19 +20,17 @@
         <div style="height: 15px"></div>
         <a href="./index_usuarios.html">Volver</a>
         <div style="height: 10px"></div>
-        <h2>Asistente de creación de clientes</h2>
+        <h2>Asistente de creación de cuentas</h2>
         <div style="height: 25px"></div>
-        <input type="text" id="dni" placeholder="DNI" />
+        <input type="button" class="submit" onclick="generateNumber()" value="Generar número" />
         <div style="height: 25px"></div>
-        <input type="text" id="names" placeholder="Nombres completos" />
+        <input type="text" id="number" placeholder="Número de tarjeta" />
         <div style="height: 25px"></div>
-        <input type="text" id="plastname" placeholder="Apellido paterno" />
+        <input type="button" class="submit" onclick="generatePassword()" value="Generar clave" />
         <div style="height: 25px"></div>
-        <input type="text" id="mlastname" placeholder="Apellido materno" />
+        <input type="text" id="password" placeholder="Clave" />
         <div style="height: 25px"></div>
-        <input type="date" id="bdate" placeholder="Fecha de nacimiento" />
-        <div style="height: 25px"></div>
-        <input type="button" class="submit" onclick="createClient()" value="Crear cliente" />
+        <input type="button" class="submit" onclick="createCard()" value="Crear tarjeta" />
     </div>
 </body>
 

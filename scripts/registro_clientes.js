@@ -18,7 +18,7 @@ function createClient() {
         }
     };
 
-    xhttp.open("POST", "./cgi-bin/clientes.pl", true);
+    xhttp.open("POST", "./cgi-bin/registro_clientes.pl", true);
     xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=ISO-8859-1');
     xhttp.send("dni=" + dniInput.value + "&names=" + namesInput.value + "&plastname=" + plastnameInput.value + "&mlastname=" + mlastnameInput.value + "&bdate=" + birthDateInput.value);
 }
