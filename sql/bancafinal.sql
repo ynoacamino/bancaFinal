@@ -231,5 +231,4 @@ COMMIT;
 
 -- usuarios
 CREATE USER 'query'@'%' IDENTIFIED BY 'YR4AFJUC3nyRmasY';
-GRANT SELECT ON `query`.`*` TO 'query'@'%'
-GRANT INSERT ON `query`.`*` TO 'query'@'%'
+GRANT SELECT, INSERT ON `bancafinal`.* TO 'query'@'%';
