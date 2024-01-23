@@ -10,7 +10,7 @@ function firstLog() {
         if (logged_in == "1") {
             let welcome = document.createElement("h4");
             let name = response.getElementsByTagName("name")[0].childNodes[0].nodeValue;
-            welcome.innerHTML = "Bienvenido, " + name;
+            welcome.innerHTML = "Bienvenido, " + name + " ";
             document.getElementById("welcome").append(welcome);
         } else {
             redirectBack();
