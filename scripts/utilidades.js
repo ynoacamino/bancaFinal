@@ -7,7 +7,9 @@ function redirect(url, params) {
     location = url;
 }
 
-// params son los id del formulario
+// html_params son los parametros que se buscan en el formulario (el id tiene que tener el mismo nombre)
+// se permite el ingreso de seleccion multiple con un arreglo, el primer elemento es el nombre del parametro y los siguientes las opciones a buscar en el formulario
+// extra_params son parametros adicionales que puedes ingresar manualmente "type=operario"
 // script es la ubicacion del archio perl, tiene que terminar en .pl
 // func siempre debe tener el parametro (response)
 function fetch2(html_params, extra_params, script, func) {
@@ -17,15 +19,14 @@ function fetch2(html_params, extra_params, script, func) {
         try {
             if (typeof html_params[i] == "object") {
                 let chosenInput;
-                for (let j = 0; j < html_params.length; j++) {
+                for (let j = 1; j < html_params[i].length; j++) {
                     let input = document.getElementById(html_params[i][j]);
                     if (input.checked) {
                         chosenInput = input;
-                        query += html_params[i][j] + "=";
                         break;
                     }
                 }
-                query += chosenInput.value + "&";
+                query += html_params[i][0] + "=" + chosenInput.value + "&";
             } else {
                 let param_value = document.getElementById(html_params[i]).value;
                 query += html_params[i] + "=" + param_value + "&";
@@ -51,30 +52,30 @@ function fetch2(html_params, extra_params, script, func) {
     xhttp.send(query);
 }
 
-function createStatusElements(errors) {
-    for (let i = 0; i < errors.length; i++) {
-        let element = errors[i].getElementsByTagName("element")[0].firstChild.nodeValue;
-        let message = errors[i].getElementsByTagName("message")[0].firstChild.nodeValue;
-        let statusElement = document.getElementById("status_" + element);
-        if (statusElement) {
-            statusElement.remove();
-        }
-        createElement(element, message);
+function removeStatusElements() {
+    let errorElements = document.getElementsByName("error");
+    while (errorElements.length > 0) {
+        errorElements[0].remove();
     }
 }
 
-function createElement(element, message) {
+function createStatusElements(errors, parent) {
+    removeStatusElements(parent);
+    for (let i = 0; i < errors.length; i++) {
+        let element = errors[i].getElementsByTagName("element")[0].firstChild.nodeValue;
+        let message = errors[i].getElementsByTagName("message")[0].firstChild.nodeValue;
+        createElement(element, message, parent);
+    }
+}
+
+function createElement(element, message, parent) {
     const statusElement = document.createElement("h3");
     const placeElement = document.getElementById(element);
 
-    if (message != "Correcto") {
-        placeElement.classList.add("error");
-        statusElement.classList.add("error");
-    } else {
-        placeElement.classList.remove("error");
-    }
+    placeElement.classList.add("error");
+    statusElement.classList.add("error");
 
-    statusElement.id = "status_" + element;
     statusElement.innerHTML = message;
-    document.getElementById("content").insertBefore(statusElement, placeElement);
+    statusElement.setAttribute("name", "error");
+    document.getElementById(parent).insertBefore(statusElement, placeElement);
 }

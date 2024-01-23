@@ -21,6 +21,9 @@ use CGI::Session;
 use CGI::Cookie;
 use DBI;
 
+my %type_nums = (d => 1, w => 2, i => 3);
+my %type_names = (1 => "DEPOSITO", 2 => "RETIRO", 3 => "TRANSFERENCIA ENVIADA", 4 => "TRANSFERENCIA RECIBIDA");
+
 my $cgi = CGI->new;
 $cgi->charset("UTF-8");
 
@@ -44,26 +47,46 @@ if ($session_cookie) {
 
     my @row = $sth->fetchrow_array;
     my $currency = $row[0] eq "s" ? "S/." : "\$";
-    my $total = $row[1] * $row[2];
+    my $amount = $currency.$row[1];
+    my $type = $type_names{$row[2]};
+    my $date = $row[3];
+    my $total = $row[1] * get_mult($row[2]);
+
     print $cgi->header("text/xml");
     print "<status>\n";
+    print_row($amount, $type, $date);
     while (@row = $sth->fetchrow_array) {
-        $total = $total + ($row[1] * $row[2]);
+        $total = $total + ($row[1] * get_mult($row[2]));
         my $amount = $currency.$row[1];
-        my $type = $row[2] == 1 ? "DEPOSITO" : "RETIRO";
+        my $type = $type_names{$row[2]};
         my $date = $row[3];
-        print<<BLOCK;
+        print_row($amount, $type, $date);        
+    }
+    my $balance = $currency.$total;
+    print<<XML;
+        <balance>$balance</balance>
+    </status>
+XML
+}
+
+sub get_mult {
+    my $mult = 1;
+    if ($type_nums{$_[0]} == 2 || $type_nums{$_[0]} == 3) {
+        $mult = -1;
+    }
+    return $mult;
+}
+
+sub print_row {
+    my $amount = $_[0];
+    my $type = $_[1];
+    my $date = $_[2];
+    print<<XML;
         <movement>
             <amount>$amount</amount>
             <type>$type</type>
             <date>$date</date>
         </movement>
-BLOCK
-    }
-    my $balance = $currency.$total;
-    print<<BLOCK;
-        <balance>$balance</balance>
-    </status>
-BLOCK
+XML
 }
 

@@ -1,10 +1,11 @@
 function doMovement() {
-    fetch2([["deposit", "withdrawal"], amount], [], "movimiento_cliente.pl", function (response) {
-        if (response == "correct") {
-            alert("Movimiento realizado correctamente");
-            location = "./index_clientes.html";
+    fetch2([["type", "deposit", "withdrawal", "transference"], "amount"], [], "movimiento_cliente.pl", function (response) {
+        const errors = response.getElementsByTagName("error");
+        if (errors.length != 0) {
+            createStatusElements(errors, "form");
         } else {
-            createStatusElements(xhttp);
+            alert("Movimiento realizado correctamente");
+            window.location = "./index_clientes.html";    
         }
     });
 }

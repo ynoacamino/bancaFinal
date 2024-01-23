@@ -1,6 +1,7 @@
 #!perl/bin/perl.exe
 
-# Recibe: card_id, type (d o w), amount
+# Recibe: card_id, type (d, w, i), amount, other_card (only for i)
+# deposit, withdrawal, transferin
 # Retorna:
 # <errors>
 #     <error>
@@ -19,6 +20,8 @@ use CGI;
 use CGI::Session;
 use CGI::Cookie;
 use DBI;
+
+my %type_nums = (d => 1, w => 2, i => 3);
 
 my $cgi = CGI->new;
 $cgi->charset("UTF-8");
@@ -48,8 +51,17 @@ sub transaction {
         my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
         my $dbh = DBI->connect($dsn, $u, $p);
 
-        my $type_num = $type eq "d" ? 1 : -1;
+        my $type_num = $type_nums{$type};
+        if ($type_num == 3) {
+            my $other_card = $cgi->param("other_card");
+            my $sth = $dbh->prepare("SELECT `id` FROM tarjetas WHERE numero = '$other_card'");
+            $sth->execute;
+            my @row = $sth->fetchrow_array;
+            my $other_id = $row[0];
 
+            $sth = $dbh->prepare("INSERT INTO movimientos (tarjeta_id, monto, tipo) VALUES ($other_id, $amount, 4)");
+            $sth->execute;
+        }
         my $sth = $dbh->prepare("INSERT INTO movimientos (tarjeta_id, monto, tipo) VALUES ($card_id, $amount, $type_num)");
         $sth->execute;
         print $cgi->header("text/xml");
@@ -92,7 +104,7 @@ sub check_type {
     if (!$type) {
         return "Marque un tipo";
     }
-    if ($type !~ /^[dw]$/) {
+    if ($type !~ /^[dwi]$/) {
         return "Tipo no valido".
     }
 }
