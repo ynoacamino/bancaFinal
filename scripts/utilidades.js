@@ -15,10 +15,23 @@ function fetch2(html_params, extra_params, script, func) {
     let query = "";
     for (let i = 0; i < html_params.length; i++) {
         try {
-            let param_value = document.getElementById(html_params[i]).value;
-            query += html_params[i] + "=" + param_value + "&";
+            if (typeof html_params[i] == "object") {
+                let chosenInput;
+                for (let j = 0; j < html_params.length; j++) {
+                    let input = document.getElementById(html_params[i][j]);
+                    if (input.checked) {
+                        chosenInput = input;
+                        query += html_params[i][j] + "=";
+                        break;
+                    }
+                }
+                query += chosenInput.value + "&";
+            } else {
+                let param_value = document.getElementById(html_params[i]).value;
+                query += html_params[i] + "=" + param_value + "&";
+            }
         } catch (err) {
-            alert ("Error obteniendo " + html_params[i]);
+            alert("Error obteniendo " + html_params[i]);
         }
     }
 
