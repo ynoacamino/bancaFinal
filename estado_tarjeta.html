@@ -13,18 +13,22 @@
 
 <body>
     <div id="content" class="content">
-        <div>
-            <h4 id="timer">Su sesión concluirá en:</h4>
-            <input type="button" class="logout" onclick="closeSession()" value="Cerrar sesión" />
+        <div class="top">
+            <h2>Estado de cuenta</h2>
+            <div class="rigthTop">
+                <a href="./index_clientes.html" class="btnLink">Volver</a>
+                <div>
+                    <h4 id="timer">Su sesión concluirá en:</h4>
+                    <input type="button" class="logout" onclick="closeSession()" value="Cerrar sesión" />
+                </div>
+            </div>
         </div>
-        <a href="./index_clientes.html">Volver</a>
-    </div>
-    <div>
-        <h2>Estado de cuenta</h2>
-        <h3>Balance de cuenta:</h3>
-        <div id="balance"></div>
-        <h3>Últimos movimientos:</h3>
-        <div id="movements">
+        <div class="form">
+            <h3>Balance de cuenta:</h3>
+            <div id="balance"></div>
+            <h3>Últimos movimientos:</h3>
+        </div>
+        <div id="movements" style="width: 100%;">
             <div class="movement">
                 <h5 style="font-size: 20px;">CANTIDAD</h5>
                 <h5 style="font-size: 20px;">TIPO</h5>

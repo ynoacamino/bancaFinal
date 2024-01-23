@@ -10,10 +10,19 @@ body {
 /* Content Style */
 
 .top {
-    float: right;
-    display: flexbox;
-    width: max-content;
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    max-width: 1400px;
+    justify-content: space-between;
     align-items: center;
+    padding: 0px 40px;
+}
+
+@media screen and (max-width: 700px) {
+    .top {
+        flex-direction: column;
+    }
 }
 
 /* Header Styles */
@@ -69,4 +78,38 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.btnLink {
+    color: #202E44;
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    border: 1px solid #ACB2BD;
+    padding: 10px 16px;
+    width: max-content;
+    margin-top: 6px;
+    transition: box-shadow .1s ease-out;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: max-content;
+}
+
+.btnLink:hover {
+    text-decoration: none;
+    box-shadow: 00px 0px 5px gray;
 }

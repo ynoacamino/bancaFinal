@@ -13,19 +13,20 @@
 <body>
     <div id="content" class="content">
         <div class="top">
-            <div id="welcome"></div>
-            <h4 id="timer">Su sesión concluirá en:</h4>
-            <input type="button" class="logout" onclick="closeSession()" value="Cerrar sesión" />
+            <h2>
+                Acceso rápido
+                <div id="welcome"></div>
+            </h2>
+            <div>
+                <h4 id="timer">Su sesión concluirá en:</h4>
+                <input type="button" class="logout" onclick="closeSession()" value="Cerrar sesión" />
+            </div>
         </div>
-        <div style="height: 5px"></div>
-        <h2>Acceso rápido</h2>
-        <div style="height: 50px"></div>
-        <a href="./registro_clientes.html">Ingresar nuevo cliente</a>
-        <div style="height: 50px"></div>
-        <a href="./registro_cuentas.html">Crear nueva cuenta</a>
-        <div style="height: 50px"></div>
-        <a href="./registro_tarjetas.html">Crear nueva tarjeta</a>
-        <div style="height: 50px"></div>
+        <div class="menu">
+            <a href="./registro_clientes.html" class="btnLink">Ingresar nuevo cliente</a>
+            <a href="./registro_cuentas.html" class="btnLink">Crear nueva cuenta</a>
+            <a href="./registro_tarjetas.html" class="btnLink">Crear nueva tarjeta</a>
+        </div>
     </div>
 </body>
 

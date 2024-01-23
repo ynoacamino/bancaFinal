@@ -81,3 +81,38 @@ input[type="button"]:active {
     font-size: 20px;
     padding: 5px;
 }
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+}
+
+.btnLink {
+    color: #202E44;
+    text-align: center;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    border: 1px solid #ACB2BD;
+    padding: 10px 16px;
+    width: max-content;
+    margin-top: 6px;
+    transition: box-shadow .1s ease-out;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnLink:hover {
+    text-decoration: none;
+    box-shadow: 00px 0px 5px gray;
+}

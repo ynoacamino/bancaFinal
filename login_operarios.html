@@ -13,15 +13,12 @@
 <body>
     <div id="content" class="content">
         <img src="./logo.png" onclick="redirect('./login_operarios.html')" class="logo" />
-        <div style="height: 35px"></div>
         <h1>Ingreso de Operarios</h1>
-        <div style="height: 35px"></div>
-        <input type="text" id="user" placeholder="Usuario" />
-        <div style="height: 35px"></div>
-        <input type="password" id="password" placeholder="Contraseña" />
-        <div style="height: 35px"></div>
-        <input type="button" id="login" class="login" onclick="login()" value="Ingresar" />
-        <div style="margin-block: 25px"></div>
+        <div class="form">
+            <input type="text" id="user" placeholder="Usuario" class="inputText" />
+            <input type="password" id="password" placeholder="Contraseña" class="inputText" />
+            <input type="button" id="login" class="submitButton" onclick="login()" value="Ingresar" />
+        </div>
     </div>
 </body>
 

@@ -12,17 +12,19 @@
 <body>
     <div id="content" class="content">
         <div class="top">
-            <div id="welcome"></div>
-            <h4 id="timer">Su sesión concluirá en:</h4>
-            <input type="button" class="logout" onclick="closeSession()" value="Cerrar sesión" />
+            <h2>
+                Acceso rápido
+                <div id="welcome"></div>
+            </h2>
+            <div class="rigthTop">
+                <a href="./movimiento_cliente.html" class="btnLink">Realizar un movimiento</a>
+                <a href="./estado_tarjeta.html" class="btnLink">Ver estado</a>
+                <div>
+                    <h4 id="timer">Su sesión concluirá en:</h4>
+                    <input type="button" class="logout" onclick="closeSession()" value="Cerrar sesión" />
+                </div>
+            </div>
         </div>
-        <div style="height: 5px"></div>
-        <h2>Acceso rápido</h2>
-        <div style="height: 50px"></div>
-        <a href="./movimiento_cliente.html">Realizar un movimiento</a>
-        <div style="height: 50px"></div>
-        <a href="./estado_tarjeta.html">Ver estado</a>
-        <div style="height: 50px"></div>
     </div>
 </body>
 

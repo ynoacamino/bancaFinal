@@ -9,13 +9,26 @@ body {
     align-items: center;
 }
 
+.rigthTop {
+    display:  flex;
+    justify-content: center;
+    align-items:  center;
+    gap: 20px;
+}
+
+@media screen and (max-width: 700px) {
+    .rigthTop {
+        flex-direction: column;
+    }
+}
+
 .content {
     width: 100%;
     max-width: 1200px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-direction: row-reverse;
+    flex-direction: column;
     padding: 0px 20px;
 }
 
@@ -26,7 +39,7 @@ body {
 }
 
 /* Button Styles */
-input[type="button"] {
+.submitButton {
     margin: auto;
     display: block;
     border: none;
@@ -35,13 +48,13 @@ input[type="button"] {
     color: white;
 }
 
-input[type="button"]:hover {
+.submitButton:hover {
     background-color: #ff961f;
     box-shadow: 0 4px 4px 0px #c8c8c8;
     cursor: pointer;
 }
 
-input[type="button"]:active {
+.submitButton:active {
     background-color: #e45e00;
 }
 
@@ -49,6 +62,11 @@ input[type="button"]:active {
     width: 150px;
     font-size: 15px;
     padding: 5px;
+    display: block;
+    border: none;
+    border-radius: 10px;
+    background-color: #ff7800;
+    color: white;
 }
 
 .submit {
@@ -60,5 +78,44 @@ input[type="button"]:active {
 /* Division Styles */
 .movement {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1400px;
+}
+
+.form {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 20px;
+}
+
+.submitButton {
+    display: block;
+    border: none;
+    border-radius: 10px;
+    background-color: #ff7800;
+    color: white;
+    margin: auto;
+    max-width: 400px;
+    width: 100%;
+    font-size: 1.2rem;
+    padding: 15px 20px;
+}
+
+.inputText {
+    display: block;
+    margin: auto;
+    padding: 15px;
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: #868f9e;
+    width: 100%;
+    font-size: 20px;
+    color: #202e44;
+    max-width: 400px;
 }
