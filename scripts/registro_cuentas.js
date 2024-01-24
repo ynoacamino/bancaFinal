@@ -1,34 +1,12 @@
-addEventListener("load", checkFromCards);
-
-function checkFromCards() {
-    const number = localStorage.getItem("number");
-    if (number) {
-        localStorage.removeItem("number");
-        document.getElementById("number").value = number;
-    }
-}
-
 function createAccount() {
-    const xhttp = new XMLHttpRequest();
-    const numberInput = document.getElementById("number");
-    const solesInput = document.getElementById("soles");
-    const dollarsInput = document.getElementById("dollars");
-    const currencyInput = solesInput.checked ? solesInput : dollarsInput;
-    const dniInput = document.getElementById("dni");
-
-    xhttp.onreadystatechange = function () {
-        if (xhttp.readyState == 4 && xhttp.status == 200) {
-            const response = xhttp.responseText;
-            if (response == "correct") {
-                alert("Cuenta creada correctamente");
-                location = "./index_usuarios.html";
-            } else {
-                createStatusElements(xhttp);
-            }
+    // TODO: accounts are only created with these now
+    fetch2(["user", "password", "dni"], [], "registro_cuentas.pl", function(response) {
+        if (errors.length != 0) {
+            // TODO: update these when the  v   htmls are done
+            createStatusElements(errors, "form");
+        } else {
+            alert("Cuenta creada correctamente");
+            window.location = "./index_operarios.html";    
         }
-    };
-
-    xhttp.open("POST", "./cgi-bin/registro_cuentas.pl", true);
-    xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=ISO-8859-1');
-    xhttp.send("number=" + numberInput.value + "&currency=" + currencyInput.value + "&dni=" + dniInput.value);
+    });
 }

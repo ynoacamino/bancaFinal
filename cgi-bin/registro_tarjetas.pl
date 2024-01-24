@@ -1,6 +1,6 @@
 #!perl/bin/perl.exe
 
-# Recibe: card_number, password, currency (s o d), dni
+# Recibe: number, password, currency (s o d), dni
 # Retorna:
 # <errors>
 #     <error>
@@ -23,7 +23,7 @@ use DateTime;
 
 my $cgi = CGI->new;
 $cgi->charset("UTF-8");
-my $card_number = $cgi->param("card_number");
+my $number = $cgi->param("number");
 my $password = $cgi->param("password");
 my $currency = $cgi->param("currency");
 my $dni = $cgi->param("dni");
@@ -31,7 +31,7 @@ my $current_date = DateTime->now;
 my $expire_date = $current_date->add(years => 7)->ymd;
 
 our $account_id;
-my $card_number_status = check_card_number($card_number);
+my $number_status = check_number($number);
 my $password_status = check_password($password);
 my $currency_status = check_currency($currency);
 my $dni_status = check_DNI($dni);
@@ -39,7 +39,7 @@ my $dni_status = check_DNI($dni);
 register();
 
 sub register {
-    if (!$card_number_status && !$password_status && !$currency_status && !$dni_status) {
+    if (!$number_status && !$password_status && !$currency_status && !$dni_status) {
         my $u = "query";
         my $p = "YR4AFJUC3nyRmasY";
         my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
@@ -55,12 +55,12 @@ sub register {
     print_errors();
 }
 
-sub check_card_number {
-    my $card_number = $_[0];
-    if (!$card_number) {
+sub check_number {
+    my $number = $_[0];
+    if (!$number) {
         return "Ingrese un número de tarjeta.";
     }
-    if ($card_number !~ /^\d{16}$/) {
+    if ($number !~ /^\d{16}$/) {
         return "Número de tarjeta no valido.";
     }
 }

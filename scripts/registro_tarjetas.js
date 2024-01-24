@@ -1,29 +1,14 @@
 function createCard() {
-    const xhttp = new XMLHttpRequest();
-    const numberInput = document.getElementById("number");
-    const passwordInput = document.getElementById("password");
-
-    xhttp.onreadystatechange = function () {
-        if (xhttp.readyState == 4 && xhttp.status == 200) {
-            const response = xhttp.responseText;
-            if (response == "correct") {
-                alert("Tarjeta creada correctamente");
-                if (localStorage.getItem("fromaccounts")) {
-                    localStorage.setItem("number", numberInput.value);
-                    localStorage.removeItem("fromaccounts");
-                    location = "./cuentas.html";
-                } else {
-                    location = "./index_usuarios.html";
-                }
-            } else {
-                createStatusElements(xhttp);
-            }
+    // TODO: cards are only created with these now
+    fetch2(["number", "password", ["currency", "soles", "dolares"], "dni"], [], "registro_tarjetas.pl", function(response) {
+        if (errors.length != 0) {
+            // TODO: update these when the  v   htmls are done
+            createStatusElements(errors, "form");
+        } else {
+            alert("Cuenta creada correctamente");
+            location = "./index_operarios.html";
         }
-    };
-
-    xhttp.open("POST", "./cgi-bin/registro_tarjetas.pl", true);
-    xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=ISO-8859-1');
-    xhttp.send("number=" + numberInput.value + "&password=" + passwordInput.value);
+    });
 }
 
 function generateNumber() {

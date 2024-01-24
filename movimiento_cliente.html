@@ -31,10 +31,12 @@
         <div id="form" class="form">
             <h3>Tipo de movimiento:</h3>
             <div id="type" class="options">
-                <input type="radio" id="deposit" name="type" value="deposit" checked />
-                <label for="soles">Depósito</label>
-                <input type="radio" id="withdrawal" name="type" value="withdrawal" />
-                <label for="dollars">Retiro</label>
+                <input type="radio" id="deposit" name="type" value="d" checked />
+                <label for="d">Depósito</label>
+                <input type="radio" id="withdrawal" name="type" value="w" />
+                <label for="w">Retiro</label>
+                <input type="radio" id="transference" name="type" value="t" />
+                <label for="t">Transferencia</label>
             </div>
             <input type="text" id="amount" placeholder="Cantidad" class="inputText" />
             <input type="button" class="submitButton" onclick="doMovement()" value="Realizar movimiento" />
