@@ -1,9 +1,13 @@
 * {
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 body{
-    margin-top: 5svh;
+    margin-top: 8svh;
+}
+h1 {
+    font-size: 2.5rem;
 }
 
 /* Logo Styles */
