@@ -3,6 +3,7 @@
 }
 
 body {
+  margin-top: 7svh;
   display: flex;
   flex-direction: column;
   justify-content: start;
