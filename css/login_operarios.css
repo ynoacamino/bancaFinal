@@ -18,16 +18,13 @@
 
 .inputText:hover::placeholder {
     color: #606c7f;
-    border-color: #0a47f0;
 }
 
 
 .inputText:hover {
-    border-color: #0a47f0;
 }
 
 .inputText:focus {
-    border-color: #0a47f0;
     outline: none;
     border-width: 2px;
 }
@@ -54,21 +51,23 @@ input[type="password"][class=error] {
     gap: 20px;
     padding: 10px 20px;
     width: 100%;
-    max-width: 1200px;
+    max-width: 400px;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 30px;
 }
 
 .inputText {
     display: block;
     margin: auto;
     padding: 15px;
-    border-style: solid;
-    border-radius: 10px;
-    border-width: 1px;
-    border-color: #868f9e;
+    border: 0px;
+    border-bottom: solid 1px gray;
     width: 100%;
     font-size: 20px;
     color: #202e44;
     max-width: 400px;
+    background-color: transparent;
 }
   
 .submitButton {
@@ -82,4 +81,13 @@ input[type="password"][class=error] {
     width: 100%;
     font-size: 1.2rem;
     padding: 15px 20px;
+    margin-top: 30px;
+}
+
+.labelInput {
+
+}
+
+.labelText {
+    
 }
