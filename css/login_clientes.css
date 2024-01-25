@@ -3,7 +3,7 @@
 }
 
 body {
-  margin-top: 7svh;
+  margin-top: 5svh;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -27,48 +27,41 @@ body {
 }
 
 .inputText::placeholder {
-    color: #99a1ad;
+  color: #99a1ad;
 }
 
 .inputText:hover::placeholder {
-    color: #606c7f;
-    border-color: #0a47f0;
+  color: #606c7f;
+}
+
+.inputText:focus{
+  outline: none;
+  border-width: 2px;
 }
 
 .inputText {
   display: block;
   margin: auto;
   padding: 15px;
-  border-style: solid;
-  border-radius: 10px;
-  border-width: 1px;
-  border-color: #868f9e;
+  border: 0;
+  border-bottom: solid 1px gray;
   width: 100%;
   font-size: 20px;
   color: #202e44;
   max-width: 400px;
+  background-color: #ffff;
 }
 
-.inputText:hover {
-    border-color: #0a47f0;
-}
-
-.inputText:focus {
-    border-color: #0a47f0;
-    outline: none;
-    border-width: 2px;
-}
-
-input[type="text"][class=error],
-input[type="password"][class=error] {
-    border-color: #e30425;
+input[type="text"][class="error"],
+input[type="password"][class="error"] {
+  border-color: #e30425;
 }
 
 /* Button Styles */
 .submitButton {
   display: block;
   border: none;
-  border-radius: 15px;
+  border-radius: 10px;
   background-color: #ff7800;
   color: white;
   margin: auto;
@@ -76,22 +69,28 @@ input[type="password"][class=error] {
   width: 100%;
   font-size: 1.2rem;
   padding: 15px 20px;
+  margin-top: 30px;
+  font-weight: 600;
 }
 
 .submitButton:hover {
-    background-color: #ff961f;
-    box-shadow: 0 4px 4px 0px #c8c8c8;
-    cursor: pointer;
+  background-color: #ff961f;
+  box-shadow: 0 4px 4px 0px #c8c8c8;
+  cursor: pointer;
 }
 
 .submitButton:active {
-    background-color: #e45e00;
+  background-color: #e45e00;
 }
 
 .form {
-  box-sizing: border-box;
-  display:  flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 10px 20px;
+    box-sizing: border-box;
+    display:  flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 400px;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 30px;
 }
