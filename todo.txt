@@ -1,2 +1,0 @@
-moneda: cuentas => tarjetas
-usuarios: query YR4AFJUC3nyRmasY
