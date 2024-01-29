@@ -9,6 +9,7 @@
     <script src="./scripts/utilidades.js"></script>
     <script src="./scripts/menus_clientes.js"></script>
     <script src="./scripts/movimiento_cliente.js"></script>
+    <script src="./scripts/lista_tarjetas.js"></script>
 </head>
 
 <body>
@@ -28,8 +29,14 @@
         </div>
 
 
+
         <div id="form" class="form">
             <h3>Tipo de movimiento:</h3>
+            <input type="text" id="card_id" placeholder="querido equipo de frontend:" class="inputText" />
+            <h7>equipo de frontend esto tiene que ser con seleccion de tarjetas, hay un lista_tarjetas.js que retorna
+                todas las tarjetas</h7>
+            <div id="cards"></div>
+            <input type="text" id="other_card" placeholder="Otra tarjeta (para transferencias):" class="inputText" />
             <div id="type" class="options">
                 <input type="radio" id="deposit" name="type" value="d" checked />
                 <label for="d">Depósito</label>

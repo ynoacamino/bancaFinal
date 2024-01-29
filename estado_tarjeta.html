@@ -9,6 +9,7 @@
     <script src="./scripts/utilidades.js"></script>
     <script src="./scripts/menus_clientes.js"></script>
     <script src="./scripts/estado_tarjeta.js"></script>
+    <script src="./scripts/lista_tarjetas.js"></script>
 </head>
 
 <body>
@@ -23,6 +24,11 @@
                 </div>
             </div>
         </div>
+        <input type="text" id="card_id" placeholder="querido equipo de frontend:" class="inputText" />
+        <h7>equipo de frontend esto tiene que ser con seleccion de tarjetas, hay un lista_tarjetas.js que retorna todas
+            las tarjetas</h7>
+        <div id="cards"></div>
+        <input type="button" value="Obtener estado" class="submitButton" onclick="getStatus()" />
         <div class="form">
             <h3>Balance de cuenta:</h3>
             <div id="balance"></div>

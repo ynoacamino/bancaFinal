@@ -21,7 +21,6 @@ use CGI::Session;
 use CGI::Cookie;
 use DBI;
 
-my %type_nums = (d => 1, w => 2, i => 3);
 my %type_names = (1 => "DEPOSITO", 2 => "RETIRO", 3 => "TRANSFERENCIA ENVIADA", 4 => "TRANSFERENCIA RECIBIDA");
 
 my $cgi = CGI->new;
@@ -33,7 +32,7 @@ my $session_cookie = $cookies{"session_id_cliente"};
 if ($session_cookie) {
     my $session_id = $session_cookie->value();
     my $session = CGI::Session->load($session_id);
-    my $card_id = 1;
+    my $card_id = $cgi->param("card_id");
 
     my $u = "query";
     my $p = "YR4AFJUC3nyRmasY";
@@ -42,7 +41,7 @@ if ($session_cookie) {
 
     my $sth = $dbh->prepare("SELECT `tarjetas`.`moneda`, `movimientos`.`monto`, `movimientos`.`tipo`, `movimientos`.`fecha`
                             FROM tarjetas, movimientos
-                            WHERE tarjetas.id = '$card_id'");
+                            WHERE tarjetas.id = '$card_id' AND movimientos.tarjeta_id = tarjetas.id");
     $sth->execute;
 
     my @row = $sth->fetchrow_array;
@@ -71,7 +70,8 @@ XML
 
 sub get_mult {
     my $mult = 1;
-    if ($type_nums{$_[0]} == 2 || $type_nums{$_[0]} == 3) {
+    my $type_code = $_[0];
+    if ($type_code == 2 || $type_code == 3) {
         $mult = -1;
     }
     return $mult;

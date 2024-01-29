@@ -43,6 +43,8 @@ if ($session_cookie) {
                             WHERE cuenta_id = '$account_id'");
     $sth->execute;
 
+    print $cgi->header("text/xml");
+    print "<cards>\n";
     while (my @row = $sth->fetchrow_array) {
         my $id = $row[0];
         my $card_number = $row[1];
@@ -50,11 +52,9 @@ if ($session_cookie) {
         my $expire_date = $row[3];
         my $currency = $row[4] eq "s" ? "SOLES" : "DÓLARES";
         
-        print $cgi->header("text/xml");
-        print "<errors>\n";
         print_card($id, $card_number, $code, $expire_date, $currency);
-        print "</errors>\n";
     }
+    print "</cards>\n";
 }
 
 sub print_card {
