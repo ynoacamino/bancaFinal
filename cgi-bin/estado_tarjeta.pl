@@ -1,6 +1,6 @@
 #!perl/bin/perl.exe
 
-# Recibe: nada
+# Recibe: card_id
 # Retorna: 
 # <status> 
 #     <movement>
@@ -33,7 +33,7 @@ my $session_cookie = $cookies{"session_id_cliente"};
 if ($session_cookie) {
     my $session_id = $session_cookie->value();
     my $session = CGI::Session->load($session_id);
-    my $card_id = $session->param("card_id");
+    my $card_id = 1;
 
     my $u = "query";
     my $p = "YR4AFJUC3nyRmasY";
@@ -43,7 +43,7 @@ if ($session_cookie) {
     my $sth = $dbh->prepare("SELECT `tarjetas`.`moneda`, `movimientos`.`monto`, `movimientos`.`tipo`, `movimientos`.`fecha`
                             FROM tarjetas, movimientos
                             WHERE tarjetas.id = '$card_id'");
-    $sth->execute($account_id);
+    $sth->execute;
 
     my @row = $sth->fetchrow_array;
     my $currency = $row[0] eq "s" ? "S/." : "\$";

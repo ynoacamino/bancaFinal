@@ -18,20 +18,34 @@
             <div>
                 <h4 id="timer">Su sesión concluirá en:</h4>
                 <input type="button" class="logout" onclick="closeSession()" value="Cerrar sesión" />
-            </div> 
+            </div>
         </div>
         <div style="height: 15px"></div>
         <a href="./index_operarios.html">Volver</a>
         <div style="height: 10px"></div>
         <h2>Asistente de creación de cuentas</h2>
         <div style="height: 25px"></div>
-        <input type="button" class="submit" onclick="generateNumber()" value="Generar número" />
-        <div style="height: 25px"></div>
         <input type="text" id="number" placeholder="Número de tarjeta" />
+        <div style="height: 25px"></div>
+        <input type="button" class="submit" onclick="generateNumber()" value="Generar número" />
+
+        <div style="height: 25px"></div>
+        <input type="password" id="password" placeholder="Contraseña" />
+        <div style="height: 25px"></div>
+        <input type="text" id="password_output" placeholder="Contraseña generada" />
         <div style="height: 25px"></div>
         <input type="button" class="submit" onclick="generatePassword()" value="Generar clave" />
         <div style="height: 25px"></div>
-        <input type="text" id="password" placeholder="Clave" />
+        <h3>Tipo de moneda:</h3>
+        <div id="currency" class="options">
+            <input type="radio" id="soles" name="currency" value="s" checked />
+            <label for="soles">Soles</label>
+            <div style="width: 50px"></div>
+            <input type="radio" id="dollars" name="currency" value="d" />
+            <label for="dollars">Dólares</label>
+        </div>
+        <div style="height: 25px"></div>
+        <input type="text" id="dni" placeholder="DNI del cliente" />
         <div style="height: 25px"></div>
         <input type="button" class="submit" onclick="createCard()" value="Crear tarjeta" />
     </div>

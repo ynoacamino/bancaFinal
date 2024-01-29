@@ -24,7 +24,6 @@ my $session_cookie = $cookies{"session_id_$type"};
 
 print ($cgi->header("text/xml"));
 print "<session>\n";
-my $action = $cgi->param("action");
 if ($action eq "check") {
     if ($session_cookie) {
         my $session_id = $session_cookie->value();

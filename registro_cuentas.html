@@ -25,20 +25,14 @@
         <div style="height: 10px"></div>
         <h2>Asistente de creación de cuentas</h2>
         <div style="height: 25px"></div>
-        <input type="text" id="number" placeholder="Número de tarjeta" />
+        <input type="text" id="user" placeholder="Usuario" />
         <div style="height: 25px"></div>
-        <input type="button" class="submit" onclick="redirect('./registro_tarjetas.html')"
-            value="Creación de tarjetas" />
+        <input type="password" id="password" placeholder="Contraseña" />
         <div style="height: 25px"></div>
-        <h3>Tipo de moneda:</h3>
-        <div id="currency" class="options">
-            <input type="radio" id="soles" name="currency" value="s" checked />
-            <label for="soles">Soles</label>
-            <div style="width: 50px"></div>
-            <input type="radio" id="dollars" name="currency" value="d" />
-            <label for="dollars">Dólares</label>
-        </div>
-        <div style="height: 45px"></div>
+        <input type="text" id="password_output" placeholder="Contraseña generada" readonly="true" />
+        <div style="height: 25px"></div>
+        <input type="button" class="submit" onclick="generatePassword()" value="Generar contraseña" />
+        <div style="height: 25px"></div>
         <input type="text" id="dni" placeholder="DNI del cliente" />
         <div style="height: 25px"></div>
         <input type="button" class="submit" onclick="createAccount()" value="Crear cuenta" />

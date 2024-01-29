@@ -34,17 +34,19 @@ my $plastname_status = check_plastname($plastname);
 my $mlastname_status = check_mlastname($mlastname);
 my $bdate_status = check_bdate($bdate);
 
+my %errors = (dni => $dni_status, name => $name_status, plastname => $plastname_status, mlastname => $mlastname_status, bdate => $bdate_status);
+
 register();
 
 sub register {
-    if (!$dni_status && !$name_status && !$plastname_status && !$mlastname_status && !bdate_status) {
+    if (!$dni_status && !$name_status && !$plastname_status && !$mlastname_status && !$bdate_status) {
         my $u = "query";
         my $p = "YR4AFJUC3nyRmasY";
         my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
         my $dbh = DBI->connect($dsn, $u, $p);
 
-        my $sth = $dbh->prepare("INSERT INTO clientes (dni, nombres, paterno, materno, nacimiento) VALUES ($dni, $name, $plastname, $mlastname, $bdate)");
-        $sth->execute();
+        my $sth = $dbh->prepare("INSERT INTO clientes (dni, nombres, paterno, materno, nacimiento) VALUES ('$dni', '$name', '$plastname', '$mlastname', '$bdate')");
+        $sth->execute;
         print $cgi->header("text/xml");
 
         return;
@@ -71,7 +73,7 @@ sub check_name {
     if (length($name) > 40) {
         return "Nombre muy largo.";
     }
-    if ($name !~ /^\w{1,40}$/) {
+    if ($name !~ /^[\w ]{1,40}$/) {
         return "Nombre no valido.";
     }
 }
@@ -85,7 +87,7 @@ sub check_plastname {
     if ($length > 30) {
         return "Apellido paterno muy largo.";
     }
-    if ($plastname !~ /^\w{1,30}$/) {
+    if ($plastname !~ /^[\w ]{1,30}$/) {
         return "Apellido paterno no valido.";
     }
 }
@@ -99,7 +101,7 @@ sub check_mlastname {
     if ($length > 30) {
         return "Apellido materno muy largo.";
     }
-    if ($mlastname !~ /^\w{1,30}$/) {
+    if ($mlastname !~ /^[\w ]{1,30}$/) {
         return "Apellido materno no valido.";
     }
 }

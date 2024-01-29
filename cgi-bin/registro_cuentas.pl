@@ -26,21 +26,23 @@ my $user = $cgi->param("user");
 my $password = $cgi->param("password");
 my $dni = $cgi->param("dni");
 
+my $u = "query";
+my $p = "YR4AFJUC3nyRmasY";
+my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
+my $dbh = DBI->connect($dsn, $u, $p);
+
 our $client_id;
 my $user_status = check_user($user);
 my $password_status = check_password($password);
 my $dni_status = check_DNI($dni);
 
+my %errors = (user => $user_status, password => $password_status, dni => $dni_status);
+
 register();
 
 sub register {
     if (!$user_status && !$password_status && !$dni_status) {
-        my $u = "query";
-        my $p = "YR4AFJUC3nyRmasY";
-        my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
-        my $dbh = DBI->connect($dsn, $u, $p);
-
-        my $sth = $dbh->prepare("INSERT INTO cuentas (usuario, clave, cliente_id) VALUES ($user, $password, $client_id)");
+        my $sth = $dbh->prepare("INSERT INTO cuentas (usuario, clave, cliente_id) VALUES ('$user', '$password', '$client_id')");
         $sth->execute;
         print $cgi->header("text/xml");
 
@@ -80,13 +82,14 @@ sub check_DNI {
     if ($dni !~ /^\d{8}$/) {
         return "DNI no valido.";
     }
-    my $sth = $dbh->prepare("SELECT `id` FROM clientes WHERE dni = $dni");
+    my $sth = $dbh->prepare("SELECT `id` FROM clientes WHERE dni = '$dni'");
     $sth->execute;
     my @row = $sth->fetchrow_array;
     if (!@row) {
         return "Cliente no existente.";
     }
     $client_id = $row[0];
+    return undef;
 }
 
 sub print_errors {

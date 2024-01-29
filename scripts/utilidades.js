@@ -74,3 +74,13 @@ function createElement(element, message, parent) {
     statusElement.setAttribute("name", "error");
     document.getElementById(parent).insertBefore(statusElement, placeElement);
 }
+
+function generatePassword() {
+    const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    let password = "";
+    for (let i = 0; i < 10; i++) {
+        password += chars.charAt(Math.random() * chars.length)
+    }
+    document.getElementById("password").value = password;
+    document.getElementById("password_output").value = password;
+}

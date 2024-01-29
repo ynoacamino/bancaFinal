@@ -30,23 +30,25 @@ my $dni = $cgi->param("dni");
 my $current_date = DateTime->now;
 my $expire_date = $current_date->add(years => 7)->ymd;
 
+my $u = "query";
+my $p = "YR4AFJUC3nyRmasY";
+my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
+my $dbh = DBI->connect($dsn, $u, $p);
+
 our $account_id;
 my $number_status = check_number($number);
 my $password_status = check_password($password);
 my $currency_status = check_currency($currency);
 my $dni_status = check_DNI($dni);
 
+my %errors = (number => $number_status, password => $password_status, currency => $currency_status, dni => $dni_status);
+
 register();
 
 sub register {
     if (!$number_status && !$password_status && !$currency_status && !$dni_status) {
-        my $u = "query";
-        my $p = "YR4AFJUC3nyRmasY";
-        my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
-        my $dbh = DBI->connect($dsn, $u, $p);
-
-        my $sth = $dbh->prepare("INSERT INTO tarjetas (numero, clave, vencimiento, cuenta_id) VALUES (?, ?, ?)");
-        $sth->execute($number, $password, $expire_date);
+        my $sth = $dbh->prepare("INSERT INTO tarjetas (numero, clave, vencimiento, cuenta_id) VALUES ('$number', '$password', '$expire_date', '$account_id')");
+        $sth->execute();
         print $cgi->header("text/xml");
 
         return;
@@ -96,15 +98,16 @@ sub check_DNI {
     if ($dni !~ /^\d{8}$/) {
         return "DNI no valido.";
     }
-    my $sth = $dbh->prepare("SELECT `cuenta`.`id`
+    my $sth = $dbh->prepare("SELECT `cuentas`.`id`
                             FROM cuentas, clientes
-                            WHERE clientes.dni = '$dni' AND cuentas.cliente_id = 'clientes_id'");
+                            WHERE clientes.dni = '$dni' AND cuentas.cliente_id = clientes.id");
     $sth->execute;
     my @row = $sth->fetchrow_array;
     if (!@row) {
         return "Cliente no existente."
     }
-    $client_id = $row[0];
+    $account_id = $row[0];
+    return undef;
 }
 
 sub print_errors {

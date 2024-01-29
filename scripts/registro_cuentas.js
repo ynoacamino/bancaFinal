@@ -1,6 +1,6 @@
 function createAccount() {
-    // TODO: accounts are only created with these now
     fetch2(["user", "password", "dni"], [], "registro_cuentas.pl", function(response) {
+        const errors = response.getElementsByTagName("error");
         if (errors.length != 0) {
             // TODO: update these when the  v   htmls are done
             createStatusElements(errors, "form");

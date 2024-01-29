@@ -38,5 +38,5 @@ function closeSession() {
 
 function redirectBack() {
     alert("Su sesión ha expirado");
-    window.location = "./login_operarios.html";
+    window.location = "./login_clientes.html";
 }

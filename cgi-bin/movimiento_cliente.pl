@@ -25,32 +25,34 @@ my %type_nums = (d => 1, w => 2, i => 3);
 
 my $cgi = CGI->new;
 $cgi->charset("UTF-8");
-my $card_id = $cgi->param("card_id");
+my $card_id = "032";
 my $type = $cgi->param("type");
 my $amount = $cgi->param("amount");
 
 my %cookies = CGI::Cookie->fetch();
 my $session_cookie = $cookies{"session_id_cliente"};
 
+my $u = "query";
+my $p = "YR4AFJUC3nyRmasY";
+my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
+my $dbh = DBI->connect($dsn, $u, $p);
+
 my $card_id_status = check_card_id($card_id);
 my $type_status = check_type($type);
 my $amount_status = check_amount($amount);
 
+my %errors = (card_id => $card_id_status, type => $type_status, amount => $amount_status);
+
 if ($session_cookie) {
     my $session_id = $session_cookie->value();
     my $session = CGI::Session->load($session_id);
-    $account_id = $session->param("account_id");
+    my $account_id = $session->param("account_id");
 
     transaction();
 }
 
 sub transaction {
-    if (!card_id_status && !$amount_status && !$type_status) {
-        my $u = "query";
-        my $p = "YR4AFJUC3nyRmasY";
-        my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
-        my $dbh = DBI->connect($dsn, $u, $p);
-
+    if (!$card_id_status && !$amount_status && !$type_status) {
         my $type_num = $type_nums{$type};
         if ($type_num == 3) {
             my $other_card = $cgi->param("other_card");
@@ -105,7 +107,7 @@ sub check_type {
         return "Marque un tipo";
     }
     if ($type !~ /^[dwi]$/) {
-        return "Tipo no valido".
+        return "Tipo no valido";
     }
 }
 
