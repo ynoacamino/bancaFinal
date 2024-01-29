@@ -42,7 +42,6 @@ my $type_status = check_type($type);
 my $amount_status = check_amount($amount);
 our $other_id;
 
-
 my %errors = (card_id => $card_id_status, type => $type_status, amount => $amount_status);
 
 if ($session_cookie) {
