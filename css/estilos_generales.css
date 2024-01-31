@@ -39,6 +39,7 @@ h2 {
     text-align: left;
     font-size: 35px;
     color: #002a8d;
+    text-align: center;
 }
 
 /* Messages */
@@ -113,3 +114,37 @@ a:hover {
     text-decoration: none;
     box-shadow: 00px 0px 5px gray;
 }
+
+.rigthTop {
+    display:  flex;
+    justify-content: center;
+    align-items:  center;
+    gap: 20px;
+}
+
+@media screen and (max-width: 700px) {
+    .rigthTop {
+        flex-direction: column;
+    }
+}
+
+.logout {
+    width: 150px;
+    font-size: 15px;
+    padding: 5px;
+    display: block;
+    border: none;
+    border-radius: 10px;
+    background-color: #ff7800;
+    color: white;
+}
+
+.logout:hover {
+    background-color: #ff961f;
+    box-shadow: 0 4px 4px 0px #c8c8c8;
+    cursor: pointer;
+  }
+  
+  .logout:active {
+    background-color: #e45e00;
+  }

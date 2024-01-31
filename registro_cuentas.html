@@ -13,29 +13,25 @@
 
 <body>
     <div id="content" class="content">
-        <div class="top">
+        <div class="leftTop">
             <div id="welcome"></div>
+        </div>
+        <div class="rigthTop">
+            <a href="./index_operarios.html" class="btnLink">Volver</a>
             <div>
-               <h4 id="timer">Su sesión concluirá en:</h4>
-            <input type="button" class="logout" onclick="closeSession()" value="Cerrar sesión" /> 
+                <h4 id="timer">Su sesión concluirá en:</h4>
+                <input type="button" class="logout" onclick="closeSession()" value="Cerrar sesión" /> 
             </div>
         </div>
-        <div style="height: 15px"></div>
-        <a href="./index_operarios.html">Volver</a>
-        <div style="height: 10px"></div>
-        <h2>Asistente de creación de cuentas</h2>
-        <div style="height: 25px"></div>
-        <input type="text" id="user" placeholder="Usuario" />
-        <div style="height: 25px"></div>
-        <input type="password" id="password" placeholder="Contraseña" />
-        <div style="height: 25px"></div>
-        <input type="text" id="password_output" placeholder="Contraseña generada" readonly="true" />
-        <div style="height: 25px"></div>
-        <input type="button" class="submit" onclick="generatePassword()" value="Generar contraseña" />
-        <div style="height: 25px"></div>
-        <input type="text" id="dni" placeholder="DNI del cliente" />
-        <div style="height: 25px"></div>
-        <input type="button" class="submit" onclick="createAccount()" value="Crear cuenta" />
+    </div>
+    <h2>Asistente de creación de cuentas</h2>
+    <div id="form" class="form">
+        <input type="text" class="inputText" id="user" placeholder="Usuario" />
+        <input type="password" class="inputText" id="password" placeholder="Contraseña" />
+        <input type="text"class="inputText" id="password_output" placeholder="Contraseña generada" readonly="true" />
+        <input type="button"onclick="generatePassword()" value="Generar contraseña" class="submitButton" />
+        <input type="text" id="dni" placeholder="DNI del cliente" class="inputText" />
+        <input type="button" class="submitButton" onclick="createAccount()" value="Crear cuenta" />
     </div>
 </body>
 
