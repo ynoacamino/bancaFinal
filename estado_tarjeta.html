@@ -10,6 +10,7 @@
     <script src="./scripts/menus_clientes.js"></script>
     <script src="./scripts/estado_tarjeta.js"></script>
     <script src="./scripts/lista_tarjetas.js"></script>
+    <script src="./scripts/slide.js" defer></script>
 </head>
 
 <body>
@@ -24,10 +25,73 @@
                 </div>
             </div>
         </div>
-        <input type="text" id="card_id" placeholder="querido equipo de frontend:" class="inputText" />
-        <h7>equipo de frontend esto tiene que ser con seleccion de tarjetas, hay un lista_tarjetas.js que retorna todas
-            las tarjetas</h7>
-        <div id="cards"></div>
+        <div id="cards" class="cards">
+            <h3 class="label-slide">Seleciona una tarjeta</h2>
+                <img class="prev control" src="./assets/arrow-prev.png" alt="">
+                <div class="slide">
+                    <label class="card mockup">
+                        <input type="radio" name="card" id="" style="font-size: 40px;">
+                        <div class="info">
+                            <label for="dcn">Número de Cuenta</label>
+                            <h4 id="ccn">5164 3572 0740 3614</h4>
+                        </div>
+                        <div class="info">
+                            <label for="name">Nombre</label>
+                            <h4 id="name">John Smith</h4>
+                        </div>
+                        <div class="info exp">
+                            <label for="exp-date">Fecha Exp.</label>
+                            <h4 id="exp-date">12/27</h4>
+                        </div>
+                    </label>
+                    <label class="card mockup">
+                        <input type="radio" name="card" id="" style="font-size: 40px;">
+                        <div class="info">
+                            <label for="dcn">Número de Cuenta</label>
+                            <h4 id="ccn">1234 5678 9012 3456</h4>
+                        </div>
+                        <div class="info">
+                            <label for="name">Nombre</label>
+                            <h4 id="name">Jane Doe</h4>
+                        </div>
+                        <div class="info exp">
+                            <label for="exp-date">Fecha Exp.</label>
+                            <h4 id="exp-date">11/24</h4>
+                        </div>
+                    </label>
+                    <label class="card mockup">
+                        <input type="radio" name="card" id="" style="font-size: 40px;">
+                        <div class="info">
+                            <label for="dcn">Número de Cuenta</label>
+                            <h4 id="ccn">9876 5432 1098 7654</h4>
+                        </div>
+                        <div class="info">
+                            <label for="name">Nombre</label>
+                            <h4 id="name">Alice Johnson</h4>
+                        </div>
+                        <div class="info exp">
+                            <label for="exp-date">Fecha Exp.</label>
+                            <h4 id="exp-date">10/25</h4>
+                        </div>
+                    </label>
+                    <label class="card mockup">
+                        <input type="radio" name="card" id="" style="font-size: 40px;">
+                        <div class="info">
+                            <label for="dcn">Número de Cuenta</label>
+                            <h4 id="ccn">2468 1357 0246 8135</h4>
+                        </div>
+                        <div class="info">
+                            <label for="name">Nombre</label>
+                            <h4 id="name">Bob Anderson</h4>
+                        </div>
+                        <div class="info exp">
+                            <label for="exp-date">Fecha Exp.</label>
+                            <h4 id="exp-date">09/26</h4>
+                        </div>
+                    </label>
+                </div>
+                <img class="control next" src="./assets/arrow.png" alt="">
+        </div>
         <input type="button" value="Obtener estado" class="submitButton" onclick="getStatus()" />
         <div class="form">
             <h3>Balance de cuenta:</h3>

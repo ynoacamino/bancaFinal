@@ -1,128 +1,198 @@
 /* Input Styles */
 * {
-    box-sizing: border-box;
-  }
+  box-sizing: border-box;
+}
 body {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
 }
 
 .rigthTop {
-    display:  flex;
-    justify-content: center;
-    align-items:  center;
-    gap: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
 @media screen and (max-width: 700px) {
-    .rigthTop {
-        flex-direction: column;
-    }
+  .rigthTop {
+    flex-direction: column;
+  }
 }
 
 .content {
-    width: 100%;
-    max-width: 1200px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
-    padding: 0px 20px;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  padding: 0px 20px;
 }
 
 .options {
-    display: flex;
-    margin: auto;
-    justify-content: center;
+  display: flex;
+  margin: auto;
+  justify-content: center;
 }
 
 /* Button Styles */
 .submitButton {
-    margin: auto;
-    display: block;
-    border: none;
-    border-radius: 25px;
-    background-color: #ff7800;
-    color: white;
+  margin: auto;
+  display: block;
+  border: none;
+  border-radius: 25px;
+  background-color: #ff7800;
+  color: white;
 }
 
 .submitButton:hover {
-    background-color: #ff961f;
-    box-shadow: 0 4px 4px 0px #c8c8c8;
-    cursor: pointer;
+  background-color: #ff961f;
+  box-shadow: 0 4px 4px 0px #c8c8c8;
+  cursor: pointer;
 }
 
 .submitButton:active {
-    background-color: #e45e00;
+  background-color: #e45e00;
 }
 
 .submit {
-    width: 225px;
-    font-size: 20px;
-    padding: 5px;
+  width: 225px;
+  font-size: 20px;
+  padding: 5px;
 }
 
 /* Division Styles */
 .movement {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 1400px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1400px;
 }
 
 .form {
-    width: 100%;
-    max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    gap: 20px;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  gap: 20px;
 }
 
 .submitButton {
-    display: block;
-    border: none;
-    border-radius: 10px;
-    background-color: #ff7800;
-    color: white;
-    margin: auto;
-    max-width: 400px;
-    width: 100%;
-    font-size: 1.2rem;
-    padding: 15px 20px;
+  display: block;
+  border: none;
+  border-radius: 10px;
+  background-color: #ff7800;
+  color: white;
+  margin: auto;
+  max-width: 400px;
+  width: 100%;
+  font-size: 1.2rem;
+  padding: 15px 20px;
 }
 
 .inputText {
-    display: block;
-    margin: auto;
-    padding: 15px;
-    border-style: solid;
-    border-radius: 10px;
-    border-width: 1px;
-    border-color: #868f9e;
-    width: 100%;
-    font-size: 20px;
-    color: #202e44;
+  display: block;
+  margin: auto;
+  padding: 15px;
+  border-style: solid;
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: #868f9e;
+  width: 100%;
+  font-size: 20px;
+  color: #202e44;
 }
+/* Estilos para el slide de tarjetas */
 
 .cards {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  width: 500px;
+  display: grid;
+  grid-template-areas:
+    "label label label"
+    "prev slide next";
+  align-items: center;
+  margin-bottom: 32px;
+  gap: 12px;
+}
+
+.control {
+  height: 25px;
+  transition: transform 0.3s ease;
+}
+
+.control:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.label-slide {
+  grid-area: label;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.next {
+  grid-area: next;
+}
+
+.prev {
+  grid-area: prev;
+}
+
+.slide {
+  display: flex;
+  overflow: hidden;
+  width: 400px;
+  box-shadow: 0 0 15px 7px #0005;
+  height: 238px;
+  border-radius: 10px;
+  scroll-behavior: smooth;
+}
+
+.slide::-webkit-scrollbar {
+    display: none;
 }
 
 .card {
-    display: flex;
-    justify-content: space-between;
-    padding: 0px 10px;
-    border-style: solid;
-    border-radius: 10px;
-    border-width: 1px;
-    border-color: #868f9e;
-    background: #ffffff;
+  display: flex;
+  min-width: 400px;
+  height: 238px;
+  padding: 30px;
+  border-width: 1px;
+  background: url(https://pc-solucion.es/wp-content/uploads/2019/02/como-hacer-un-degradado-css.jpg);
+  color: #fff;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
+h4 {
+    margin: 0;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.info > label {
+    font-size: .9rem;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+}
+
+.info.exp {
+    align-self: flex-end;
+}
+
+input[type="radio"] {
+    opacity: 0;
+}
