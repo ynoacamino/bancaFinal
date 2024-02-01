@@ -1,5 +1,12 @@
 addEventListener("load", getCards);
 
+const sections = new Map([
+    ["ccn", "Número de cuenta"],
+    ["code", "Código de seguridad"],
+    ["curr", "Moneda"],
+    ["exp-date", "Fecha Exp"]
+])
+
 function getCards() {
     fetch2([], [], "lista_tarjetas.pl", function (response) {
         const cards = response.getElementsByTagName("card");
@@ -9,25 +16,42 @@ function getCards() {
             let code = cards[i].getElementsByTagName("code")[0].childNodes[0].nodeValue;
             let expire_date = cards[i].getElementsByTagName("expire_date")[0].childNodes[0].nodeValue;
             let currency = cards[i].getElementsByTagName("currency")[0].childNodes[0].nodeValue;
-            createCardElement([id, card_number, code, expire_date, currency]);
+            createCardElement([id, card_number, code, currency, expire_date]);
         }
+        initCardSlide();
+        updateSelectedCard();
     });
 }
 
 function createCardElement(values) {
-    const movementElement = document.createElement("div");
-    movementElement.classList.add("card");
+    const cardElement = document.createElement("label");
+    cardElement.className = "card mockup";
 
-    for (let i = 0; i < values.length; i++) {
-        createCardSubElement(movementElement, values[i]);
-    }
+    const idElement = document.createElement("input");
+    idElement.type = "radio";
+    idElement.name = "card";
+    idElement.id = values[0];
+    idElement.value = values[0];
+    cardElement.appendChild(idElement);
 
-    document.getElementById("cards").appendChild(movementElement);
+    createCardSubElement("info", "ccn", values[1], cardElement);
+    createCardSubElement("info", "code", values[2], cardElement);
+    createCardSubElement("info exp", "curr", values[3], cardElement);
+    createCardSubElement("info exp", "exp-date", values[4], cardElement);
+
+    document.getElementById("slide").appendChild(cardElement);
 }
 
-function createCardSubElement(parentElement, value) {
-    const element = document.createElement("h4");
-    element.style = "display: inline;"
-    element.innerHTML = value + " ";
+function createCardSubElement(cssclass, textId, value, parentElement) {
+    const element = document.createElement("div");
+    element.className = cssclass;
+    const label = document.createElement("label");
+    label.innerHTML = sections.get(textId);
+    label.setAttribute("for", textId);
+    const text = document.createElement("h4");
+    text.id = textId;
+    text.innerHTML = value;
+    element.appendChild(label).appendChild(text);
+
     parentElement.appendChild(element);
 }

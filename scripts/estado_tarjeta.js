@@ -1,17 +1,22 @@
 function getStatus() {
-    fetch2(["card_id"], [], "estado_tarjeta.pl", function(response) {
+    const cardElements = document.getElementsByName("card");
+    const cards = [["card_id"]];
+    for (let i = 0; i < cardElements.length; i++) {
+        cards[0][i + 1] = cardElements.item(i).value;
+    }
+    fetch2(cards, [], "estado_tarjeta.pl", function (response) {
         removeExistingElements();
 
         const balance = response.getElementsByTagName("balance")[0].childNodes[0].nodeValue;
-            createBalanceElement(balance);
+        createBalanceElement(balance);
 
-            const movements = response.getElementsByTagName("movement");
-            for (let i = movements.length - 1; i >= 0; i--) {
-                let amount = movements[i].getElementsByTagName("amount")[0].childNodes[0].nodeValue;
-                let type = movements[i].getElementsByTagName("type")[0].childNodes[0].nodeValue;
-                let date = movements[i].getElementsByTagName("date")[0].childNodes[0].nodeValue;
-                createMovementElement([amount, type, date]);
-            }
+        const movements = response.getElementsByTagName("movement");
+        for (let i = movements.length - 1; i >= 0; i--) {
+            let amount = movements[i].getElementsByTagName("amount")[0].childNodes[0].nodeValue;
+            let type = movements[i].getElementsByTagName("type")[0].childNodes[0].nodeValue;
+            let date = movements[i].getElementsByTagName("date")[0].childNodes[0].nodeValue;
+            createMovementElement([amount, type, date]);
+        }
     });
 }
 
