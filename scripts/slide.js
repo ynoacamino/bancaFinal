@@ -1,3 +1,4 @@
+let selectedIdx = 1;
 let prev;
 let next;
 let slide;
@@ -13,23 +14,21 @@ function initCardSlide() {
 
   prev.addEventListener("click", () => {
     slide.scrollLeft -= 400;
-    setTimeout(() => {
-      updateSelectedCard();
-    }, 300);
+    selectedIdx = Math.max(1, Math.min(selectedIdx - 1, cards.length));
+    document.getElementById(selectedIdx).checked = true;
   });
 
   next.addEventListener("click", () => {
     slide.scrollLeft += 400;
-    setTimeout(() => {
-      updateSelectedCard();
-    }, 300);
+    selectedIdx = Math.max(1, Math.min(selectedIdx + 1, cards.length));
+    document.getElementById(selectedIdx).checked = true;
   });
 
-  contentCards.addEventListener("click", () => {
+  /*contentCards.addEventListener("click", () => {
     setTimeout(() => {
       updateSelectedCard();
     }, 300);
-  });
+  });*/
 }
 
 function updateSelectedCard() {
@@ -38,7 +37,6 @@ function updateSelectedCard() {
   var closestCard;
   var minDistance = Infinity;
 
-  // TODO: especificamente esta parte no funciona
   cards.forEach(function (card) {
     var cardCenter = card.offsetLeft + card.offsetWidth / 2;
     var distance = Math.abs(containerCenter - cardCenter);

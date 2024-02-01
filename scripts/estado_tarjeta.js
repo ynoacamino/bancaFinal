@@ -1,10 +1,5 @@
 function getStatus() {
-    const cardElements = document.getElementsByName("card");
-    const cards = [["card_id"]];
-    for (let i = 0; i < cardElements.length; i++) {
-        cards[0][i + 1] = cardElements.item(i).value;
-    }
-    fetch2(cards, [], "estado_tarjeta.pl", function (response) {
+    fetch2([generateCardsQuery()], [], "estado_tarjeta.pl", function (response) {
         removeExistingElements();
 
         const balance = response.getElementsByTagName("balance")[0].childNodes[0].nodeValue;
@@ -34,7 +29,8 @@ function removeExistingElements() {
 }
 
 function createBalanceElement(balance) {
-    const balanceElement = document.createElement("h4");
+    const balanceElement = document.createElement("h5");
+    balanceElement.style = "font-size: 20px;"
     balanceElement.innerHTML = balance;
     balanceElement.id = "balance_elem";
     document.getElementById("balance").appendChild(balanceElement);

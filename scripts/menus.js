@@ -1,42 +1,42 @@
-onload = function () {
-    firstLog();
-    updateTimer();
-    setInterval(updateTimer, 1 * 1000);
-};
+function init(type) {
+    firstLog(type);
+    updateTimer(type);
+    setInterval(function () { updateTimer(type) }, 1 * 1000);
+}
 
-function firstLog() {
-    fetch2([], ["action=check", "type=operario"], "sesion.pl", function(response) {
+function firstLog(type) {
+    fetch2([], ["action=check", `type=${type}`], "sesion.pl", function (response) {
         let logged_in = response.getElementsByTagName("logged_in")[0].childNodes[0].nodeValue;
         if (logged_in == "1") {
-            let welcome = document.createElement("h4");
+            let welcome = document.createElement("h5");
             let name = response.getElementsByTagName("name")[0].childNodes[0].nodeValue;
             welcome.innerHTML = "Bienvenido, " + name + " ";
             document.getElementById("welcome").append(welcome);
         } else {
-            redirectBack();
+            redirectBack(type);
         }
     });
 }
 
-function updateTimer() {
-    fetch2([], ["action=check", "type=operario"], "sesion.pl", function(response) {
+function updateTimer(type) {
+    fetch2([], ["action=check", `type=${type}`], "sesion.pl", function (response) {
         let logged_in = response.getElementsByTagName("logged_in")[0].childNodes[0].nodeValue;
         if (logged_in == "1") {
             let timer = response.getElementsByTagName("expire_time")[0].childNodes[0].nodeValue;
             document.getElementById("timer").innerHTML = "Su sesión concluirá en: " + timer + "s";
         } else {
-            redirectBack();
+            redirectBack(type);
         }
     });
 }
 
-function closeSession() {
-    fetch2([], ["action=close", "type=operario"], "sesion.pl", function(response) {
-        redirectBack();
+function closeSession(type) {
+    fetch2([], ["action=close", `type=${type}`], "sesion.pl", function (response) {
+        redirectBack(type);
     })
 }
 
-function redirectBack() {
+function redirectBack(type) {
     alert("Su sesión ha expirado");
-    window.location = "./login_operarios.html";
+    window.location = `./login_${type}s.html`;
 }

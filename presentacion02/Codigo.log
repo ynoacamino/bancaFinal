@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.9) (preloaded format=pdflatex 2023.9.18)  24 JAN 2024 23:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.9) (preloaded format=pdflatex 2023.9.18)  1 FEB 2024 10:11
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -174,12 +174,7 @@ Package babel Info: Importing font and identification data for english
 File: l3backend-pdftex.def 2023-04-19 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count277
 \l__pdf_internal_box=\box57
-) (Codigo.aux
-LaTeX Info: Redefining \. on input line 8.
-LaTeX Info: Redefining \% on input line 8.
-LaTeX Info: Redefining \. on input line 9.
-LaTeX Info: Redefining \% on input line 9.
-)
+) (Codigo.aux)
 \openout1 = `Codigo.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 51.
@@ -289,40 +284,39 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 24.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 24.
-LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 27.
+LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 26.
  (F:\MiKTeX\tex/latex/base\ts1cmtt.fd
 File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 ) [1
 
-{C:/Users/raulc/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]) (../cgi-bin/lista_tarjetas.pl [2]) (../cgi-bin/login.pl [3] [4]) (../cgi-bin/movimiento_cliente.pl [5] [6]) (../cgi-bin/registro_clientes.pl [7] [8]) (../cgi-bin/registro_cuentas.pl [9] [10]) (../cgi-bin/registro_tarjetas.pl [11] [12]) (../cgi-bin/sesion.pl [13]) [14] (F:\MiKTeX\tex/latex/listings\lstlang1.sty
+{C:/Users/raulc/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]) (../cgi-bin/lista_tarjetas.pl [2]) (../cgi-bin/login.pl [3] [4]) (../cgi-bin/movimiento_cliente.pl [5] [6] [7]) (../cgi-bin/registro_clientes.pl [8] [9]) (../cgi-bin/registro_cuentas.pl [10]) [11] (../cgi-bin/registro_tarjetas.pl [12] [13]) (../cgi-bin/sesion.pl) [14] (F:\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 ) (../sql/bancafinal.sql [15] [16] [17]) [18] (F:\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 ) (F:\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
-) (../estado_tarjeta.html) (../index_clientes.html [19]) (../index_operarios.html) (../login_clientes.html [20]) (../login_operarios.html) (../movimiento_cliente.html [21]) (../registro_clientes.html [22]) (../registro_cuentas.html) (../registro_tarjetas.html [23]) [24] (../css/estilos_generales.css [25]) (../css/login_clientes.css [26] [27]) (../css/login_operarios.css [28]) (../css/menus_clientes.css [29] [30]) (../css/menus_operarios.css [31] [32]) [33] (../scripts/estado_tarjeta.js) (../scripts/lista_tarjetas.js [34]) (../scripts/login_clientes.js) (../scripts/login_operarios.js) (../scripts/menus_clientes.js [35]) (../scripts/menus_operarios.js) (../scripts/movimiento_cliente.js [36]) (../scripts/registro_clientes.js) (../scripts/registro_cuentas.js) (../scripts/registro_tarjetas.js [37]) (../scripts/utilidades.js [38]) [39] (Codigo.aux
-LaTeX Info: Redefining \. on input line 8.
-LaTeX Info: Redefining \% on input line 8.
-LaTeX Info: Redefining \. on input line 9.
-LaTeX Info: Redefining \% on input line 9.
-)
- ***********
-LaTeX2e <2023-06-01> patch level 1
-L3 programming layer <2023-08-29>
- ***********
- ) 
+) (../estado_tarjeta.html) (../index_clientes.html [19]) (../index_operarios.html) (../login_clientes.html [20]) (../login_operarios.html) (../movimiento_cliente.html [21]) (../registro_clientes.html [22]) (../registro_cuentas.html) [23] (../registro_tarjetas.html) [24] (../css/estilos_generales.css [25] [26]) (../css/login_clientes.css [27] [28]) (../css/login_operarios.css [29]) (../css/menus_clientes.css [30] [31] [32]) (../css/menus_operarios.css [33] [34]) [35] (../scripts/estado_tarjeta.js) (../scripts/lista_tarjetas.js [36] [37])
+
+! Package Listings Error: File `../scripts/login_clientes(.js)' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: js)
+
+Enter file name: 
+f:/Documents/UNSA/A1S2/PWeb/XAMPP/htdocs/bancaFinal/presentacion02/Codigo.tex:95: Emergency stop.
+<read *> 
+         
+l.95 ...mbers=left,]{../scripts/login_clientes.js}
+                                                  ^^M
+*** (cannot \read from terminal in nonstop modes)
+
+ 
 Here is how much of TeX's memory you used:
- 8452 strings out of 475247
- 137467 string characters out of 5774207
- 2068801 words of memory out of 5000000
- 29791 multiletter control sequences out of 15000+600000
+ 8419 strings out of 475247
+ 135667 string characters out of 5774207
+ 2044801 words of memory out of 5000000
+ 29779 multiletter control sequences out of 15000+600000
  561268 words of font info for 47 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  61i,6n,69p,523b,1995s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\raulc\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tctt0900.pk><F:/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><F:/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><F:/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><F:/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on Codigo.pdf (39 pages, 151928 bytes).
-PDF statistics:
- 154 PDF objects out of 1000 (max. 8388607)
- 0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+f:/Documents/UNSA/A1S2/PWeb/XAMPP/htdocs/bancaFinal/presentacion02/Codigo.tex:95:  ==> Fatal error occurred, no output PDF file produced!

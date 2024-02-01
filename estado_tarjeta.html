@@ -7,21 +7,21 @@
     <link rel="stylesheet" href="./css/estilos_generales.css" />
     <link rel="stylesheet" href="./css/menus_clientes.css" />
     <script src="./scripts/utilidades.js"></script>
-    <script src="./scripts/menus_clientes.js"></script>
+    <script src="./scripts/menus.js"></script>
     <script src="./scripts/estado_tarjeta.js"></script>
     <script src="./scripts/lista_tarjetas.js"></script>
-    <script src="./scripts/slide.js" defer></script>
+    <script src="./scripts/slide.js"></script>
 </head>
 
-<body>
+<body onload="init('cliente')">
     <div id="content" class="content">
         <div class="top">
             <h2>Estado de cuenta</h2>
             <div class="rigthTop">
                 <a href="./index_clientes.html" class="btnLink">Volver</a>
                 <div>
-                    <h4 id="timer">Su sesión concluirá en:</h4>
-                    <input type="button" class="logout" onclick="closeSession()" value="Cerrar sesión" />
+                    <h5 id="timer">Su sesión concluirá en:</h5>
+                    <input type="button" class="logout" onclick="closeSession('cliente')" value="Cerrar sesión" />
                 </div>
             </div>
         </div>

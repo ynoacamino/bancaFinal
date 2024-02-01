@@ -6,11 +6,11 @@
     <title>Usuario</title>
     <link rel="stylesheet" href="./css/estilos_generales.css" />
     <link rel="stylesheet" href="./css/menus_clientes.css" />
-    <script src="./scripts/menus_clientes.js"></script>
+    <script src="./scripts/menus.js"></script>
     <script src="./scripts/utilidades.js"></script>
 </head>
 
-<body>
+<body onload="init('cliente')">
     <div id="content" class="content">
         <div class="top">
             <h2>
@@ -21,8 +21,8 @@
                 <a href="./movimiento_cliente.html" class="btnLink">Realizar un movimiento</a>
                 <a href="./estado_tarjeta.html" class="btnLink">Ver estado</a>
                 <div>
-                    <h4 id="timer">Su sesión concluirá en:</h4>
-                    <input type="button" class="logout" onclick="closeSession()" value="Cerrar sesión" />
+                    <h5 id="timer">Su sesión concluirá en:</h5>
+                    <input type="button" class="logout" onclick="closeSession('cliente')" value="Cerrar sesión" />
                 </div>
             </div>
         </div>

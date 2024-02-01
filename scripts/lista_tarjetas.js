@@ -1,12 +1,5 @@
 addEventListener("load", getCards);
 
-const sections = new Map([
-    ["ccn", "Número de cuenta"],
-    ["code", "Código de seguridad"],
-    ["curr", "Moneda"],
-    ["exp-date", "Fecha Exp"]
-])
-
 function getCards() {
     fetch2([], [], "lista_tarjetas.pl", function (response) {
         const cards = response.getElementsByTagName("card");
@@ -29,29 +22,57 @@ function createCardElement(values) {
 
     const idElement = document.createElement("input");
     idElement.type = "radio";
+    idElement.className = "card-selector"
     idElement.name = "card";
     idElement.id = values[0];
     idElement.value = values[0];
     cardElement.appendChild(idElement);
 
-    createCardSubElement("info", "ccn", values[1], cardElement);
-    createCardSubElement("info", "code", values[2], cardElement);
-    createCardSubElement("info exp", "curr", values[3], cardElement);
-    createCardSubElement("info exp", "exp-date", values[4], cardElement);
+    let number = formatNumber(values[1]);
+    let password = formatPassword(values[2]);
+    let expire = formatExpire(values[4]);
+    createCardSubElement("info", "Número de cuenta", number, cardElement);
+    createCardSubElement("info", "Clave", password, cardElement);
+    createCardSubElement("info exp", "Moneda", values[3], cardElement);
+    createCardSubElement("info exp", "Fecha Exp", expire, cardElement);
 
     document.getElementById("slide").appendChild(cardElement);
 }
 
-function createCardSubElement(cssclass, textId, value, parentElement) {
+function formatNumber(number) {
+    let fnumber = number.substring(0, 4);
+    for (let i = 1; i <= 3; i++)
+        fnumber += "-" + number.substring(i * 4, i * 4 + 4);
+    return fnumber;
+}
+
+function formatPassword(password) {
+    return password.substring(0, 4) + "*".repeat(password.length - 4);
+}
+
+function formatExpire(expire) {
+    return expire.substring(0, expire.indexOf(" "));
+}
+
+function createCardSubElement(cssclass, title, value, parentElement) {
     const element = document.createElement("div");
     element.className = cssclass;
-    const label = document.createElement("label");
-    label.innerHTML = sections.get(textId);
-    label.setAttribute("for", textId);
-    const text = document.createElement("h4");
-    text.id = textId;
-    text.innerHTML = value;
-    element.appendChild(label).appendChild(text);
+
+    const titleElement = document.createElement("h6");
+    titleElement.innerHTML = title;
+    const textElement = document.createElement("h4");
+    textElement.innerHTML = value;
+    element.appendChild(titleElement)
+    element.appendChild(textElement);
 
     parentElement.appendChild(element);
+}
+
+function generateCardsQuery() {
+    const cardElements = document.getElementsByName("card");
+    const cards = ["card_id"];
+    for (let i = 0; i < cardElements.length; i++) {
+        cards[i + 1] = cardElements.item(i).value;
+    }
+    return cards;
 }

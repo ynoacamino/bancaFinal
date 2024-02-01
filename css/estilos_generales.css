@@ -69,6 +69,12 @@ h5 {
     color: #202e44;
 }
 
+h6 {
+    color: white;
+    margin: 0px;
+    padding: 0px;
+}
+
 /* Links */
 a {
     text-align: left;
@@ -116,9 +122,9 @@ a:hover {
 }
 
 .rigthTop {
-    display:  flex;
+    display: flex;
     justify-content: center;
-    align-items:  center;
+    align-items: center;
     gap: 20px;
 }
 
@@ -143,8 +149,8 @@ a:hover {
     background-color: #ff961f;
     box-shadow: 0 4px 4px 0px #c8c8c8;
     cursor: pointer;
-  }
-  
-  .logout:active {
+}
+
+.logout:active {
     background-color: #e45e00;
-  }
+}

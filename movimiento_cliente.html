@@ -7,12 +7,13 @@
     <link rel="stylesheet" href="./css/estilos_generales.css" />
     <link rel="stylesheet" href="./css/menus_clientes.css" />
     <script src="./scripts/utilidades.js"></script>
-    <script src="./scripts/menus_clientes.js"></script>
+    <script src="./scripts/menus.js"></script>
     <script src="./scripts/movimiento_cliente.js"></script>
     <script src="./scripts/lista_tarjetas.js"></script>
+    <script src="./scripts/slide.js"></script>
 </head>
 
-<body>
+<body onload="init('cliente')">
     <div id="content" class="content">
         <div class="top">
             <h2>
@@ -22,62 +23,32 @@
             <div class="rigthTop">
                 <a href="./index_clientes.html" class="btnLink">Volver</a>
                 <div>
-                    <h4 id="timer">Su sesión concluirá en:</h4>
-                    <input type="button" class="logout" onclick="closeSession()" value="Cerrar sesión" />
+                    <h5 id="timer">Su sesión concluirá en:</h5>
+                    <input type="button" class="logout" onclick="closeSession('cliente')" value="Cerrar sesión" />
                 </div>
             </div>
         </div>
 
-
-
         <div id="form" class="form">
-            <h3>Tipo de movimiento:</h3>
-            <input type="text" id="card_id" placeholder="querido equipo de frontend:" class="inputText" />
-            <div id="cards" class="cards">
-                <h3>Seleciona una tarjeta</h2>
-                <label class="card">
-                    <input type="radio" name="card" id="">
-                    <h4>123</h4>
-                    <h4>q23123123123</h4>
-                    <h4>123123</h4>
-                    <h4>121212</h4>
-                    <h4>12121</h4>
-                </label>
-                <label class="card">
-                    <input type="radio" name="card" id="">
-                    <h4>123</h4>
-                    <h4>q23123123123</h4>
-                    <h4>123123</h4>
-                    <h4>121212</h4>
-                    <h4>12121</h4>
-                </label>
-                <label class="card">
-                    <input type="radio" name="card" id="">
-                    <h4>123</h4>
-                    <h4>q23123123123</h4>
-                    <h4>123123</h4>
-                    <h4>121212</h4>
-                    <h4>12121</h4>
-                </label>
-                <label class="card">
-                    <input type="radio" name="card" id="" style="font-size: 40px;">
-                    <h4>123</h4>
-                    <h4>q23123123123</h4>
-                    <h4>123123</h4>
-                    <h4>121212</h4>
-                    <h4>12121</h4>
-                </label>
+            <div class="cards">
+                <h3 class="label-slide">Seleciona una tarjeta</h2>
+                    <img class="prev control" src="./assets/arrow-prev.png" alt="">
+                    <div id="slide" class="slide">
+
+                    </div>
+                    <img class="control next" src="./assets/arrow.png" alt="">
             </div>
-            <input type="text" id="other_card" placeholder="Otra tarjeta (para transferencias):" class="inputText" />
+            <h3>Tipo de movimiento:</h3>
             <div id="type" class="options">
-                <input type="radio" id="deposit" name="type" value="d" checked />
+                <input type="radio" id="deposit" name="type" value="d" onclick="setCardInput(false)" checked />
                 <label for="d">Depósito</label>
-                <input type="radio" id="withdrawal" name="type" value="w" />
+                <input type="radio" id="withdrawal" name="type" value="w" onclick="setCardInput(false)" />
                 <label for="w">Retiro</label>
-                <input type="radio" id="transference" name="type" value="t" />
+                <input type="radio" id="transference" name="type" value="t" onclick="setCardInput(true)" />
                 <label for="t">Transferencia</label>
             </div>
             <input type="text" id="amount" placeholder="Cantidad" class="inputText" />
+            <input type="text" style="display: none;" id="other_card" placeholder="Otra tarjeta" class="inputText" />
             <input type="button" class="submitButton" onclick="doMovement()" value="Realizar movimiento" />
         </div>
     </div>
