@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.9) (preloaded format=pdflatex 2023.9.18)  1 FEB 2024 10:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.9) (preloaded format=pdflatex 2023.9.18)  1 FEB 2024 11:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -174,7 +174,12 @@ Package babel Info: Importing font and identification data for english
 File: l3backend-pdftex.def 2023-04-19 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count277
 \l__pdf_internal_box=\box57
-) (Codigo.aux)
+) (Codigo.aux
+LaTeX Info: Redefining \. on input line 8.
+LaTeX Info: Redefining \% on input line 8.
+LaTeX Info: Redefining \. on input line 9.
+LaTeX Info: Redefining \% on input line 9.
+)
 \openout1 = `Codigo.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 51.
@@ -295,28 +300,29 @@ File: lstlang1.sty 2023/02/27 1.9 listings language file
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 ) (F:\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
-) (../estado_tarjeta.html) (../index_clientes.html [19]) (../index_operarios.html) (../login_clientes.html [20]) (../login_operarios.html) (../movimiento_cliente.html [21]) (../registro_clientes.html [22]) (../registro_cuentas.html) [23] (../registro_tarjetas.html) [24] (../css/estilos_generales.css [25] [26]) (../css/login_clientes.css [27] [28]) (../css/login_operarios.css [29]) (../css/menus_clientes.css [30] [31] [32]) (../css/menus_operarios.css [33] [34]) [35] (../scripts/estado_tarjeta.js) (../scripts/lista_tarjetas.js [36] [37])
-
-! Package Listings Error: File `../scripts/login_clientes(.js)' not found.
-
-Type X to quit or <RETURN> to proceed,
-or enter new name. (Default extension: js)
-
-Enter file name: 
-f:/Documents/UNSA/A1S2/PWeb/XAMPP/htdocs/bancaFinal/presentacion02/Codigo.tex:95: Emergency stop.
-<read *> 
-         
-l.95 ...mbers=left,]{../scripts/login_clientes.js}
-                                                  ^^M
-*** (cannot \read from terminal in nonstop modes)
-
- 
+) (../estado_tarjeta.html) (../index_clientes.html [19]) (../index_operarios.html) (../login_clientes.html [20]) (../login_operarios.html) (../movimiento_cliente.html [21]) (../registro_clientes.html [22]) (../registro_cuentas.html) [23] (../registro_tarjetas.html) [24] (../css/estilos_generales.css [25] [26]) (../css/login_clientes.css [27] [28]) (../css/login_operarios.css [29]) (../css/menus_clientes.css [30] [31] [32]) (../css/menus_operarios.css [33] [34]) [35] (../scripts/estado_tarjeta.js) (../scripts/lista_tarjetas.js [36] [37]) (../scripts/login.js) (../scripts/menus.js [38]) (../scripts/movimiento_cliente.js) (../scripts/registro_clientes.js) (../scripts/registro_cuentas.js) (../scripts/registro_tarjetas.js [39]) (../scripts/utilidades.js [40]) [41] (Codigo.aux
+LaTeX Info: Redefining \. on input line 8.
+LaTeX Info: Redefining \% on input line 8.
+LaTeX Info: Redefining \. on input line 9.
+LaTeX Info: Redefining \% on input line 9.
+)
+ ***********
+LaTeX2e <2023-06-01> patch level 1
+L3 programming layer <2023-08-29>
+ ***********
+ ) 
 Here is how much of TeX's memory you used:
- 8419 strings out of 475247
- 135667 string characters out of 5774207
- 2044801 words of memory out of 5000000
- 29779 multiletter control sequences out of 15000+600000
+ 8514 strings out of 475247
+ 138000 string characters out of 5774207
+ 2070801 words of memory out of 5000000
+ 29856 multiletter control sequences out of 15000+600000
  561268 words of font info for 47 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  61i,6n,69p,523b,1995s stack positions out of 10000i,1000n,20000p,200000b,200000s
-f:/Documents/UNSA/A1S2/PWeb/XAMPP/htdocs/bancaFinal/presentacion02/Codigo.tex:95:  ==> Fatal error occurred, no output PDF file produced!
+ <C:\Users\raulc\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tctt0900.pk><F:/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><F:/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><F:/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><F:/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
+Output written on Codigo.pdf (41 pages, 159755 bytes).
+PDF statistics:
+ 160 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
