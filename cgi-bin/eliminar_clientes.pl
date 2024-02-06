@@ -1,3 +1,5 @@
+#!perl/bin/perl.exe
+
 use strict;
 use warnings;
 use CGI;
@@ -28,7 +30,6 @@ sub remove_client {
     $sth->execute($dni);
 
     print $cgi->header("text/xml");
-    print "<success>Client with DNI $dni removed successfully.</success>";
 }
 
 sub check_DNI {
