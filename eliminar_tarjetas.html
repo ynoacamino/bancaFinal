@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Creación de tarjetas</title>
+    <link rel="stylesheet" href="./css/estilos_generales.css" />
+    <link rel="stylesheet" href="./css/menus_operarios.css" />
+    <script src="./scripts/utilidades.js"></script>
+    <script src="./scripts/menus.js"></script>
+    <script src="./scripts/eliminar_tarjetas.js"></script>
+</head>
+
+<body onload="init('operario')">
+    <div id="content" class="content">
+        <div class="leftTop">
+            <div id="welcome"></div>
+        </div>
+        <div class="rigthTop">
+            <a href="./index_operarios.html" class="btnLink">Volver</a>
+            <div>
+                <h5 id="timer">Su sesión concluirá en:</h5>
+                <input type="button" class="logout" onclick="closeSession('operario')" value="Cerrar sesión" /> 
+            </div>
+        </div>
+    </div>  
+        <h2>Asistente de eliminación de tarjetas</h2>
+    <div id="form" class="form">
+        <input type="text" class="inputText" id="number" placeholder="Número de tarjeta" />
+        <input class="submitButton" type="button" class="submit" onclick="removeCard()" value="Eliminar tarjeta" />
+    </div>
+</body>
+
+</html>
