@@ -1,0 +1,114 @@
+\documentclass{article}
+\usepackage[top=1cm, bottom=2cm, outer=1cm, inner=1cm]{geometry}
+\usepackage{graphicx}
+\usepackage[labelformat=empty]{caption}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{color, colortbl}
+\usepackage[utf8]{inputenc}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{codebackground}{rgb}{1, 1, 1}
+\lstset{frame=tb,
+	language=bash,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3,
+	backgroundcolor= \color{codebackground},
+	literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1 {ñ}{{\~n}}1
+}
+\lstdefinelanguage{CSS}{
+  keywords={color,background-image:,margin,padding,font,weight,display,position,top,left,right,bottom,list,style,border,size,white,space,min,width, transition:, transform:, transition-property, transition-duration, transition-timing-function},	
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  alsoletter={:},
+  alsodigit={-}
+}
+\lstdefinelanguage{JavaScript}{
+  morekeywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  morecomment=[s]{/*}{*/},
+  morecomment=[l]//,
+  morestring=[b]",
+  morestring=[b]'
+}
+\usepackage[english,spanish]{babel}
+\AtBeginDocument{\selectlanguage{spanish}}
+
+\begin{document}
+
+\begin{center}
+	\fontsize{17}{17} \textbf{Código}
+\end{center}
+
+\section{Perl:}
+\lstinputlisting[language=perl,numbers=left,]{../cgi-bin/eliminar_clientes.pl}
+\lstinputlisting[language=perl,numbers=left,]{../cgi-bin/eliminar_cuentas.pl}
+\lstinputlisting[language=perl,numbers=left,]{../cgi-bin/eliminar_tarjetas.pl}
+\lstinputlisting[language=perl,numbers=left,]{../cgi-bin/estado_tarjeta.pl}
+\lstinputlisting[language=perl,numbers=left,]{../cgi-bin/lista_tarjetas.pl}
+\lstinputlisting[language=perl,numbers=left,]{../cgi-bin/login.pl}
+\lstinputlisting[language=perl,numbers=left,]{../cgi-bin/movimiento_cliente.pl}
+\lstinputlisting[language=perl,numbers=left,]{../cgi-bin/registro_clientes.pl}
+\lstinputlisting[language=perl,numbers=left,]{../cgi-bin/registro_cuentas.pl}
+\lstinputlisting[language=perl,numbers=left,]{../cgi-bin/registro_tarjetas.pl}
+\lstinputlisting[language=perl,numbers=left,]{../cgi-bin/sesion.pl}
+\pagebreak
+
+\section{SQL:}
+\lstinputlisting[language=sql,numbers=left,]{../sql/bancafinal.sql}
+\pagebreak
+
+\section{HTML:}
+\lstinputlisting[language=HTML,numbers=left,]{../eliminar_clientes.html}
+\lstinputlisting[language=HTML,numbers=left,]{../eliminar_cuentas.html}
+\lstinputlisting[language=HTML,numbers=left,]{../eliminar_tarjetas.html}
+\lstinputlisting[language=HTML,numbers=left,]{../estado_tarjeta.html}
+\lstinputlisting[language=HTML,numbers=left,]{../index_clientes.html}
+\lstinputlisting[language=HTML,numbers=left,]{../index_operarios.html}
+\lstinputlisting[language=HTML,numbers=left,]{../login_clientes.html}
+\lstinputlisting[language=HTML,numbers=left,]{../login_operarios.html}
+\lstinputlisting[language=HTML,numbers=left,]{../movimiento_cliente.html}
+\lstinputlisting[language=HTML,numbers=left,]{../registro_clientes.html}
+\lstinputlisting[language=HTML,numbers=left,]{../registro_cuentas.html}
+\lstinputlisting[language=HTML,numbers=left,]{../registro_tarjetas.html}
+\pagebreak
+
+\section{CSS:}
+\lstinputlisting[language=css,numbers=left,]{../css/estilos_generales.css}
+\lstinputlisting[language=css,numbers=left,]{../css/login_clientes.css}
+\lstinputlisting[language=css,numbers=left,]{../css/login_operarios.css}
+\lstinputlisting[language=css,numbers=left,]{../css/login.css}
+\lstinputlisting[language=css,numbers=left,]{../css/menus_clientes.css}
+\lstinputlisting[language=css,numbers=left,]{../css/menus_operarios.css}
+\pagebreak
+
+\section{JavaScript:}
+\lstinputlisting[language=JavaScript,numbers=left,]{../scripts/eliminar_clientes.js}
+\lstinputlisting[language=JavaScript,numbers=left,]{../scripts/eliminar_cuentas.js}
+\lstinputlisting[language=JavaScript,numbers=left,]{../scripts/eliminar_tarjetas.js}
+\lstinputlisting[language=JavaScript,numbers=left,]{../scripts/estado_tarjeta.js}
+\lstinputlisting[language=JavaScript,numbers=left,]{../scripts/lista_tarjetas.js}
+\lstinputlisting[language=JavaScript,numbers=left,]{../scripts/login.js}
+\lstinputlisting[language=JavaScript,numbers=left,]{../scripts/menus.js}
+\lstinputlisting[language=JavaScript,numbers=left,]{../scripts/movimiento_cliente.js}
+\lstinputlisting[language=JavaScript,numbers=left,]{../scripts/registro_clientes.js}
+\lstinputlisting[language=JavaScript,numbers=left,]{../scripts/registro_cuentas.js}
+\lstinputlisting[language=JavaScript,numbers=left,]{../scripts/registro_tarjetas.js}
+\lstinputlisting[language=JavaScript,numbers=left,]{../scripts/utilidades.js}
+\pagebreak
+
+\end{document}
