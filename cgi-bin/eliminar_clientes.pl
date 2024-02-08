@@ -26,9 +26,19 @@ sub remove_client {
     my $dsn = "dbi:mysql:database=bancafinal;host=127.0.0.1";
     my $dbh = DBI->connect($dsn, $u, $p);
 
-    my $sth = $dbh->prepare("DELETE FROM clientes WHERE dni = ?");
-    $sth->execute($dni);
+    my $sth = $dbh->prepare("SELECT `id` FROM clientes WHERE dni = '$dni'");
+    $sth->execute;
+    my @row = $sth->fetchrow_array;
+    my $id = $row[0];
 
+    $sth = $dbh->prepare("DELETE FROM movimientos, tarjetas WHERE tarjetas.cliente_id = '$id' AND movimientos.tarjeta_id = tarjetas.id");
+    $sth->execute;
+    $sth = $dbh->prepare("DELETE FROM tarjetas, cuentas WHERE cuentas.cliente_id = '$id' AND tarjetas.cuenta_id = cuentas.id");
+    $sth->execute;
+    $sth = $dbh->prepare("DELETE FROM cuentas WHERE cliente_id = '$id'");
+    $sth->execute;
+    $sth = $dbh->prepare("DELETE FROM clientes WHERE id = '$id'");
+    $sth->execute;
     print $cgi->header("text/xml");
 }
 

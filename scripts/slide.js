@@ -1,11 +1,19 @@
-let selectedIdx = 1;
+let selectedIdx = 0;
+let idxIdMap = new Map();
 let prev;
 let next;
 let slide;
 let cards;
 let contentCards;
 
-function initCardSlide() {
+function initCards() {
+  for (let i = 0; i < cards.length; i++) {
+    idxIdMap.set(i, cards[i].querySelector(".card-selector").id);
+  }
+  document.getElementById(idxIdMap.get(selectedIdx)).checked = true;
+}
+
+function initSlide() {
   prev = document.querySelector(".prev");
   next = document.querySelector(".next");
   slide = document.querySelector(".slide");
@@ -14,14 +22,14 @@ function initCardSlide() {
 
   prev.addEventListener("click", () => {
     slide.scrollLeft -= 400;
-    selectedIdx = Math.max(1, Math.min(selectedIdx - 1, cards.length));
-    document.getElementById(selectedIdx).checked = true;
+    selectedIdx = Math.max(0, Math.min(selectedIdx - 1, cards.length - 1));
+    document.getElementById(idxIdMap.get(selectedIdx)).checked = true;
   });
 
   next.addEventListener("click", () => {
     slide.scrollLeft += 400;
-    selectedIdx = Math.max(1, Math.min(selectedIdx + 1, cards.length));
-    document.getElementById(selectedIdx).checked = true;
+    selectedIdx = Math.max(0, Math.min(selectedIdx + 1, cards.length - 1));
+    document.getElementById(idxIdMap.get(selectedIdx)).checked = true;
   });
 
   /*contentCards.addEventListener("click", () => {

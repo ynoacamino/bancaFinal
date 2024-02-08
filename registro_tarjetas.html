@@ -13,28 +13,27 @@
 
 <body onload="init('operario')">
     <div id="content" class="content">
-        <div class="leftTop">
-            <div id="welcome"></div>
-        </div>
-        <div class="rigthTop">
-            <a href="./index_operarios.html" class="btnLink">Volver</a>
-            <div>
-                <h5 id="timer">Su sesión concluirá en:</h5>
-                <input type="button" class="logout" onclick="closeSession('operario')" value="Cerrar sesión" /> 
+        <div class="top">
+            <h2>
+                Acceso rápido
+                <div id="welcome"></div>
+            </h2>
+            <div class="rigthTop">
+                <a href="./index_operarios.html" class="btnLink">Volver</a>
+                <div>
+                    <h5 id="timer">Su sesión concluirá en:</h5>
+                    <input type="button" class="logout" onclick="closeSession('operario')" value="Cerrar sesión" />
+                </div>
             </div>
         </div>
     </div>  
         <h2>Asistente de creación de tarjetas</h2>
     <div id="form" class="form">
-        <div>
-            <input type="text" class="inputText" id="number" placeholder="Número de tarjeta" />
-            <input type="button" class="submitButton" class="submit" onclick="generateNumber()" value="Generar número" />
-        </div>
-        <div>
-            <input type="password" class="inputText" id="password" placeholder="Contraseña" />
-            <input type="text" class="inputText" id="password_output" placeholder="Contraseña generada" />
-            <input type="button" class="submitButton" class="submit" onclick="generatePassword()" value="Generar clave" />
-        </div>
+        <input type="text" class="inputText" id="number" placeholder="Número de tarjeta" />
+        <input type="button" class="submitButton" class="submit" onclick="generateNumber()" value="Generar número" />
+        <input type="password" class="inputText" id="password" placeholder="Contraseña" />
+        <input type="text" class="inputText" id="password_output" placeholder="Contraseña generada" />
+        <input type="button" class="submitButton" class="submit" onclick="generatePassword()" value="Generar clave" />
         <div>
             <h3>Tipo de moneda:</h3>
             <div id="currency" class="options">

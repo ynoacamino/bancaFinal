@@ -27,8 +27,8 @@ if (!$dni_status) {
 
 sub remove_account {
     my $client_id = shift;
-    my $sth = $dbh->prepare("DELETE FROM cuentas WHERE cliente_id = ?");
-    $sth->execute($client_id);
+    my $sth = $dbh->prepare("DELETE FROM cuentas WHERE cliente_id = '$client_id'");
+    $sth->execute;
 
     print $cgi->header("text/xml");
 }

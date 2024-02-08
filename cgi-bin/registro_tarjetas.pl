@@ -47,7 +47,7 @@ register();
 
 sub register {
     if (!$number_status && !$password_status && !$currency_status && !$dni_status) {
-        my $sth = $dbh->prepare("INSERT INTO tarjetas (numero, clave, vencimiento, cuenta_id) VALUES ('$number', '$password', '$expire_date', '$account_id')");
+        my $sth = $dbh->prepare("INSERT INTO tarjetas (numero, clave, vencimiento, cuenta_id, moneda) VALUES ('$number', '$password', '$expire_date', '$account_id', '$currency')");
         $sth->execute();
         print $cgi->header("text/xml");
 

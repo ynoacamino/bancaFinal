@@ -13,25 +13,28 @@
 
 <body onload="init('operario')">
     <div id="content" class="content">
-        <div class="leftTop">
-            <div id="welcome"></div>
-        </div>
-        <div class="rigthTop">
-            <a href="./index_operarios.html" class="btnLink">Volver</a>
-            <div>
-                <h5 id="timer">Su sesión concluirá en:</h5>
-                <input type="button" class="logout" onclick="closeSession('operario')" value="Cerrar sesión" /> 
+        <div class="top">
+            <h2>
+                Acceso rápido
+                <div id="welcome"></div>
+            </h2>
+            <div class="rigthTop">
+                <a href="./index_operarios.html" class="btnLink">Volver</a>
+                <div>
+                    <h5 id="timer">Su sesión concluirá en:</h5>
+                    <input type="button" class="logout" onclick="closeSession('operario')" value="Cerrar sesión" />
+                </div>
             </div>
         </div>
-    </div>  
-        <h2>Asistente de creación de clientes</h2>
+    </div>
+    <h2>Asistente de creación de clientes</h2>
     <div id="form" class="form">
         <input type="text" id="dni" class="inputText" placeholder="DNI" />
         <input type="text" id="name" class="inputText" placeholder="Nombres completos" />
         <input type="text" id="plastname" class="inputText" placeholder="Apellido paterno" />
         <input type="text" id="mlastname" class="inputText" placeholder="Apellido materno" />
-        <input type="date" id="bdate" class="inputText" placeholder="Fecha de nacimiento" />
-        <input type="button" class="submitButton" onclick="createClient()" value="Crear clientes" />
+        <input type="date" id="bdate" class="inputText" />
+        <input type="button" class="submitButton" onclick="createClient()" value="Crear cliente" />
     </div>
 </body>
 

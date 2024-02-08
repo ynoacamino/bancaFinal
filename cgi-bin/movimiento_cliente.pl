@@ -97,7 +97,7 @@ sub check_amount {
     if ($amount !~ /^\d+$/ || $amount < 0) {
         return "Cantidad no valida.";
     }
-    if ($type eq "w") {
+    if ($type eq "w" or $type eq "t") {
         my $sth = $dbh->prepare("SELECT SUM(monto*tipo) FROM movimientos WHERE tarjeta_id = '$card_id'");
         $sth->execute;
         my @sum = $sth->fetchrow_array;

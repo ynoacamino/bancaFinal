@@ -23,7 +23,7 @@ function updateTimer(type) {
         let logged_in = response.getElementsByTagName("logged_in")[0].childNodes[0].nodeValue;
         if (logged_in == "1") {
             let timer = response.getElementsByTagName("expire_time")[0].childNodes[0].nodeValue;
-            document.getElementById("timer").innerHTML = "Su sesión concluirá en: " + timer + "s";
+            document.getElementById("timer").innerHTML = "Su sesión concluirá en:\n" + timer + "s";
         } else {
             redirectBack(type);
         }

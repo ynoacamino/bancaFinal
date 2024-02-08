@@ -26,8 +26,8 @@ if (!$number_status) {
 
 sub remove_card {
     my $number = shift;
-    my $sth = $dbh->prepare("DELETE FROM tarjetas WHERE numero = ?");
-    $sth->execute($number);
+    my $sth = $dbh->prepare("DELETE FROM tarjetas WHERE numero = '$number'");
+    $sth->execute;
 
     print $cgi->header("text/xml");
 }

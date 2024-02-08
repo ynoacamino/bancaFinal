@@ -12,8 +12,7 @@ body {
 .top {
     box-sizing: border-box;
     display: flex;
-    width: 100%;
-    max-width: 1400px;
+    width: 75%;
     justify-content: space-between;
     align-items: center;
     padding: 0px 40px;
@@ -66,6 +65,7 @@ h5 {
     display: inline-block;
     text-align: center;
     font-size: 15px;
+    margin-block: 10px;
     color: #202e44;
 }
 
@@ -106,14 +106,13 @@ a:hover {
     border-radius: 20px;
     border: 1px solid #ACB2BD;
     padding: 10px 16px;
-    width: max-content;
+    width: fit-content;
     margin-top: 6px;
     transition: box-shadow .1s ease-out;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: max-content;
 }
 
 .btnLink:hover {
@@ -122,10 +121,18 @@ a:hover {
 }
 
 .rigthTop {
+    width: min-content;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
+}
+
+.menu {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 @media screen and (max-width: 700px) {

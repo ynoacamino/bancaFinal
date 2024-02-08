@@ -9,10 +9,10 @@ function getCards() {
             let code = cards[i].getElementsByTagName("code")[0].childNodes[0].nodeValue;
             let expire_date = cards[i].getElementsByTagName("expire_date")[0].childNodes[0].nodeValue;
             let currency = cards[i].getElementsByTagName("currency")[0].childNodes[0].nodeValue;
-            createCardElement([id, card_number, code, currency, expire_date]);
+            createCardElement([id, card_number, code, currency, expire_date, i]);
         }
-        initCardSlide();
-        updateSelectedCard();
+        initSlide();
+        initCards();
     });
 }
 
@@ -72,7 +72,7 @@ function generateCardsQuery() {
     const cardElements = document.getElementsByName("card");
     const cards = ["card_id"];
     for (let i = 0; i < cardElements.length; i++) {
-        cards[i + 1] = cardElements.item(i).value;
+        cards[i + 1] = cardElements.item(i).id;
     }
     return cards;
 }
